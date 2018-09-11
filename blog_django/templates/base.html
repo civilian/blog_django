@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#333">
     <title>{% block title %}{% endblock %}</title>
-    <meta name="description" content="Material Style Theme">
+    <meta name="description" content="Blog Django">
     <link rel="shortcut icon" href="/static/img/favicon.png?v=3">
     <link rel="stylesheet" href="/static/css/preload.min.css" />
     <link rel="stylesheet" href="/static/css/plugins.min.css" />
@@ -30,9 +30,8 @@
                 </span>
               </button>
               <div class="modal-title text-center">
-                <span class="ms-logo ms-logo-white ms-logo-sm mr-1">M</span>
-                <h3 class="no-m ms-site-title">Material
-                  <span>Style</span>
+                <span class="ms-logo ms-logo-white ms-logo-sm mr-1">B</span>
+                <h3 class="no-m ms-site-title">{{ brand_first_word }} <span>{{ brand_second_word }}</span>
                 </h3>
               </div>
               <div class="modal-header-tabs">
@@ -160,9 +159,9 @@
           <div class="ms-title">
             <a href="index.html">
               <!-- <img src="/static/img/demo/logo-header.png" alt=""> -->
-              <span class="ms-logo animated zoomInDown animation-delay-5">M</span>
-              <h1 class="animated fadeInRight animation-delay-6">Material
-                <span>Style</span>
+              <span class="ms-logo animated zoomInDown animation-delay-5">B</span>
+              <h1 class="animated fadeInRight animation-delay-6">{{ brand_first_word }}
+                <span>{{ brand_second_word }}</span>
               </h1>
             </a>
           </div>
@@ -182,8 +181,8 @@
             <a class="navbar-brand" href="index.html">
               <!-- <img src="/static/img/demo/logo-navbar.png" alt=""> -->
               <span class="ms-logo ms-logo-sm">M</span>
-              <span class="ms-title">Material
-                <strong>Style</strong>
+              <span class="ms-title">{{ brand_first_word }}
+                <strong>{{ brand_second_word }}</strong>
               </span>
             </a>
           </div>
@@ -288,7 +287,7 @@
       <!-- container -->
       <footer class="ms-footer">
         <div class="container">
-          <p>Copyright &copy; Material Style 2017</p>
+          <p>Copyright &copy; {{ brand_first_word }} {{ brand_second_word }} 2018</p>
         </div>
       </footer>
       <div class="btn-back-top">
@@ -307,16 +306,10 @@
             <i class="zmdi zmdi-account-add"></i> Register</a>
         </div>
         <div class="ms-slidebar-title">
-          <form class="search-form">
-            <input id="search-box-slidebar" type="text" class="search-input" placeholder="Search..." name="q" />
-            <label for="search-box-slidebar">
-              <i class="zmdi zmdi-search"></i>
-            </label>
-          </form>
           <div class="ms-slidebar-t">
             <span class="ms-logo ms-logo-sm">M</span>
-            <h3>Material
-              <span>Style</span>
+            <h3>{{ brand_first_word }}
+              <span>{{ brand_second_word }}</span>
             </h3>
           </div>
         </div>

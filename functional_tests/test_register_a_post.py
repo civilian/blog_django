@@ -1,4 +1,7 @@
+import time
+
 from .base import FunctionalTest
+from functional_tests.create_post_page import CreatePostPage
 
 class RegisterAPostTest(FunctionalTest):
 
@@ -9,17 +12,14 @@ class RegisterAPostTest(FunctionalTest):
 
         # He notices the page title and the header mentions posts
         self.assertIn('Blog', self.browser.title)
-        header_text = self.browser.find_element_by_tag_name('h1').text
-
-        self.assertIn('Blog', header_text)
 
         # He sees an invitation to create a new post and he clicks it
-        self.browser.find_element_by_link_text('Create New Post').click()
+        create_post_page = CreatePostPage(self).go_to_create_post_page()
 
         # He is taken to a new page were he encounters different fields
         # he needs to fill.
         self.waith_for(
-            self.browser.find_element_by_name('Create new post')
+            lambda: self.browser.find_element_by_name('Create new post')
         )
 
         # He starts to fill the fields of the post

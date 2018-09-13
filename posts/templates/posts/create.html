@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="/static/css/jquery-ui.css" />
+{% endblock %}
+
+{% block title %}Blog Django | Create New Post{% endblock %}
+
+{% block header_text %}Create New Post{% endblock %}
+
+{% block content %}
+  <div class="row">
+      <div class="col-md-12">
+        <div class="card animated materialU animation-delay-5">
+          <div class="card-block card-block-big">
+            <form action="index.html" method="post">
+              {{ form }}
+              {% csrf_token %}
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/jquery-ui.js"></script>
+<script>
+$( function() {
+  $( "#id_expiring_date" ).datepicker();
+} );
+</script>
+
+{% endblock %}

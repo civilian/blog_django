@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="/static/css/preload.min.css" />
     <link rel="stylesheet" href="/static/css/plugins.min.css" />
     <link rel="stylesheet" href="/static/css/style.light-blue-500.min.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    {% block stylesheets %}
+    {% endblock %}
     <!--[if lt IE 9]>
         <script src="/static/js/html5shiv.min.js"></script>
         <script src="/static/js/respond.min.js"></script>
@@ -197,7 +200,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a href="ecommerce-filters.html">Create New Post</a>
+                    <a href="{% url 'create_post' %}">Create New Post</a>
                   </li>
                 </ul>
               </li>
@@ -214,9 +217,8 @@
       <div class="material-background"></div>
       <div class="container text-center mb-6">
         <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">{% block header_text %}{% endblock %}</h1>
-          <p class="lead lead-lg color-white text-center center-block mt-2 mw-800 fw-300 animated fadeInUp animation-delay-7">Follow our blog and discover the latest content and trends in the market. In addition you will discover the best
-            <span class="colorStar">tricks</span> and
-            <span class="colorStar">discounts</span>.</p>
+        {% block header_paragraph %}
+        {% endblock %}
       </div>
       <div class="container">
         {% block content %}
@@ -257,7 +259,7 @@
              Posts </a>
           <ul id="sc5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="sch5">
             <li>
-              <a href="ecommerce-filters.html">Create New Post</a>
+              <a href="{% url 'create_post' %}">Create New Post</a>
             </li>
           </ul>
         </li>
@@ -265,5 +267,7 @@
     </div>
     <script src="/static/js/plugins.min.js"></script>
     <script src="/static/js/app.min.js"></script>
+    {% block scripts %}
+    {% endblock %}
   </body>
 </html>

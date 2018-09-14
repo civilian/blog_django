@@ -18,9 +18,6 @@ class RegisterAPostTest(FunctionalTest):
 
         # He is taken to a new page were he encounters different fields
         # he needs to fill.
-        self.waith_for(
-            lambda: self.browser.find_element_by_name('Create new post')
-        )
 
         # He starts to fill the fields of the post
         title = self.find_element_by_id('id_title')

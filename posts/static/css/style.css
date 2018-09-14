@@ -1,3 +1,8 @@
 label {
   color: black;
 }
+
+.form-group input[type=file] {
+  opacity: initial;
+  position: initial;
+}

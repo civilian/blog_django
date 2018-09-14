@@ -35,7 +35,7 @@ $ python manage.py test
 ```
 
 ## TODO
-1. Put the .env.example file.
-2. The instructions to use the Vagrantfile and the ansible.
-3. Functional tests can be executed in the vagrant machine.
-4. Decide what to do with the role provision-project-foundation
+* Test the .env.example file.
+* The instructions to use the Vagrantfile and the ansible.
+* Functional tests can be executed in the vagrant machine.
+* Decide what to do with the role provision-project-foundation

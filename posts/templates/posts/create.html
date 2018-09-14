@@ -13,8 +13,9 @@
       <div class="col-md-12">
         <div class="card animated materialU animation-delay-5">
           <div class="card-block card-block-big">
-            <form action="index.html" method="post">
+            <form action="{% url 'posts:store' %}" method="post">
               {{ form }}
+              <input type="submit" value="Create post" class="btn btn-success">
               {% csrf_token %}
             </form>
           </div>
@@ -28,7 +29,8 @@
 <script src="/static/js/jquery-ui.js"></script>
 <script>
 $( function() {
-  $( "#id_expiring_date" ).datepicker();
+  $( "#id_expiring_date" ).datepicker( { minDate: 0 } );
+  $( "#id_expiring_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 } );
 </script>
 

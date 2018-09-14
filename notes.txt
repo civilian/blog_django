@@ -4,7 +4,3 @@ and the database. It's not wort it. Just created by hand.
 -Creating the first test.
   - I skip to be able to just save it.
   - Tests but not tdd.
-
-
-- Date
-https://jqueryui.com/datepicker/

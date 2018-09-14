@@ -13,7 +13,7 @@ class CreatePostPage(object):
         )
         self.test.browser.find_element_by_link_text('Create New Post').click()
         self.test.wait_for(lambda: self.test.assertIn(
-            'Create new post',
+            'Create New Post',
             [ e.text for e in self.test.browser.find_elements_by_tag_name('h1')]
         ))
         return self

@@ -5,6 +5,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 from posts.forms import PostForm
 from posts.tests import util
+from posts.tests.util import PostFactory
 from posts.models import Post
 
 class PostFormTest(TestCase):
@@ -22,7 +23,7 @@ class PostFormTest(TestCase):
 
 
     def test_errors_with_incorrect_data(self):
-        post = util.get_custom_post_object(content='')
+        post = PostFactory.build(content='')
         data = util.get_dict_from_post(post)
         form = PostForm(data=data)
         self.assertFalse(form.is_valid())

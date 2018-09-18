@@ -7,6 +7,7 @@ from django.test import override_settings
 
 from posts.forms import PostForm
 from posts.tests import util
+from posts.tests.util import PostFactory
 from posts.models import Post
 
 class CreatePostViewTest(TestCase):
@@ -56,7 +57,7 @@ class StorePostViewTest(TestCase):
 
 
     def post_invalid_post(self):
-        post = util.get_custom_post_object(title='')
+        post = PostFactory.build(title='')
         return self.POST_object_to_store_url(post)
 
 

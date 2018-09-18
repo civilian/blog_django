@@ -3,3 +3,4 @@ gunicorn
 selenium
 fabric3
 Pillow
+factory_boy

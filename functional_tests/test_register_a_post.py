@@ -19,9 +19,11 @@ class RegisterAPostTest(FunctionalTest):
         # He is taken to a new page were he encounters different fields
         # he needs to fill.
 
-        # He starts to fill the fields of the post
-        title = self.find_element_by_id('id_title')
-        title.send_keys('Awesome blog post')
+        # He starts to filling the title of the post
+        create_post_page.write_in_title_input_box('Awesome blog post')
+
+        # Then he fills the content of the post
+        create_post_page.write_in_content_input_box('Content of the post')
 
         ## TODO: PUT THE REST OF THE FIELDS
 

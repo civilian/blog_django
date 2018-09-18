@@ -17,3 +17,13 @@ class CreatePostPage(object):
             [ e.text for e in self.test.browser.find_elements_by_tag_name('h1')]
         ))
         return self
+
+
+    def write_in_title_input_box(self, text):
+        title = self.find_element_by_id('id_title')
+        title.send_keys(text)
+
+
+    def write_in_content_input_box(self, text):
+        title = self.find_element_by_id('id_content')
+        title.send_keys(text)

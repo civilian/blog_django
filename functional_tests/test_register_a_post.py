@@ -30,9 +30,8 @@ class RegisterAPostTest(FunctionalTest):
         ## TODO:
 
         # And he puts the expiration date
-        expiring_date = util.get_date_with_time_delay(7)
-        create_post_page.write_expiring_date(expiring_date)
-
+        expiring_date = datetime.date.today() + datetime.timedelta(days=7)
+        create_post_page.write_expiring_date(expiring_date.strftime('%Y-%m-%d'))
 
         # He after finish saves the blog post
         create_post_page.click_create_post()
@@ -46,6 +45,11 @@ class RegisterAPostTest(FunctionalTest):
 
         self.assertIn('Awesome blog post', body_text)
         self.assertIn('Content of the post', body_text)
-        self.assertIn(expiring_date, body_text)
+
+        publication_date = datetime.date.today()
+        self.assertIn(publication_date.strftime('%b. %d, %Y'), body_text)
+
+        self.assertIn(expiring_date.strftime('%b. %d, %Y'), body_text)
+
 
         # Satisfied Nato goes back to sleep

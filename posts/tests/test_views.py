@@ -41,7 +41,8 @@ class StorePostViewTest(TestCase):
     def test_POST_redirects_to_show_post_view(self):
         post = util.get_valid_post_object()
         response = self.POST_object_to_store_url(post)
-        self.assertRedirects(response, reverse('posts:show'))
+        post = Post.objects.first()
+        self.assertRedirects(response, reverse('posts:show', kwargs={'post_id': post.id}))
 
 
     @override_settings(MEDIA_ROOT=tempfile.gettempdir())
@@ -71,12 +72,33 @@ class StorePostViewTest(TestCase):
         response = self.post_invalid_post()
         self.assertEqual(Post.objects.count(), 0)
 
-    # TODO: create the restriction for the expiration date.
 
 class ShowPostViewTest(TestCase):
-    pass
 
-    # def test_uses_show_post_template(self):
-    #     response = self.client.get(reverse('posts:show', ))
+    def test_uses_show_post_template(self):
+        post = PostFactory()
+        response = self.client.get(reverse('posts:show', kwargs={'post_id': post.id}))
+        self.assertTemplateUsed(response, 'posts/show.html')
 
-    # def test_displays_correct_post
+
+    def test_displays_correct_post(self):
+        correct_post = PostFactory()
+        other_post = PostFactory(title='other post')
+
+        response = self.client.get(reverse('posts:show', kwargs={'post_id': correct_post.id}))
+
+        self.assertContains(response, correct_post.title)
+        self.assertEqual(response.context['post'].image, correct_post.image)
+        self.assertContains(response, correct_post.content)
+        self.assertContains(response, correct_post.publication_date.strftime('%b. %d, %Y'))
+        self.assertContains(response, correct_post.expiring_date.strftime('%b. %d, %Y'))
+        self.assertNotContains(response, other_post.title)
+
+
+    def test_passes_correct_post_to_template(self):
+        correct_post = PostFactory()
+        other_post = PostFactory(title='other post')
+
+        response = self.client.get(reverse('posts:show', kwargs={'post_id': correct_post.id}))
+
+        self.assertEqual(response.context['post'], correct_post)

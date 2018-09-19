@@ -1,10 +1,7 @@
 from functional_tests.base import wait
+from functional_tests.base_page import BasePage
 
-class CreatePostPage(object):
-
-    def __init__(self, test):
-        self.test = test
-
+class CreatePostPage(BasePage):
 
     def go_to_create_post_page(self):
         self.test.browser.get(self.test.live_server_url)
@@ -20,10 +17,18 @@ class CreatePostPage(object):
 
 
     def write_in_title_input_box(self, text):
-        title = self.find_element_by_id('id_title')
+        title = self.test.browser.find_element_by_id('id_title')
         title.send_keys(text)
 
 
     def write_in_content_input_box(self, text):
-        title = self.find_element_by_id('id_content')
-        title.send_keys(text)
+        content = self.test.browser.find_element_by_id('id_content')
+        content.send_keys(text)
+
+
+    def write_expiring_date(self, date_text):
+        expiring_date = self.test.browser.find_element_by_id('id_expiring_date')
+        expiring_date.send_keys(date_text)
+
+    def click_create_post(self):
+        self.test.browser.find_element_by_name('create post').click()

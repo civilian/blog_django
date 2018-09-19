@@ -1,7 +1,8 @@
-import time
+import datetime
 
 from .base import FunctionalTest
 from functional_tests.create_post_page import CreatePostPage
+from posts.tests import util
 
 class RegisterAPostTest(FunctionalTest):
 
@@ -19,18 +20,32 @@ class RegisterAPostTest(FunctionalTest):
         # He is taken to a new page were he encounters different fields
         # he needs to fill.
 
-        # He starts to filling the title of the post
+        # He starts to fill the title of the post
         create_post_page.write_in_title_input_box('Awesome blog post')
 
         # Then he fills the content of the post
         create_post_page.write_in_content_input_box('Content of the post')
 
-        ## TODO: PUT THE REST OF THE FIELDS
+        # He puts the image for the post
+        ## TODO:
+
+        # And he puts the expiration date
+        expiring_date = util.get_date_with_time_delay(7)
+        create_post_page.write_expiring_date(expiring_date)
+
 
         # He after finish saves the blog post
-        self.find_element_by_link_text('Create post').click()
+        create_post_page.click_create_post()
 
         # The page shows him a success message telling him the blog has been
         # created
-        navbar = self.find_element_by_css_selector('.navbar')
-        self.assertIn('The blog post has been created', navbar)
+        create_post_page.check_message_in_messages('The blog post has been created')
+
+        # And the page shows the content of the post
+        body_text = self.browser.find_element_by_tag_name('body').text
+
+        self.assertIn('Awesome blog post', body_text)
+        self.assertIn('Content of the post', body_text)
+        self.assertIn(expiring_date, body_text)
+
+        # Satisfied Nato goes back to sleep

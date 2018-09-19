@@ -15,7 +15,7 @@
           <div class="card-block card-block-big">
             <form action="{% url 'posts:store' %}" method="post" enctype='multipart/form-data'>
               {{ form }}
-              <input type="submit" value="Create post" class="btn btn-success">
+              <input type="submit" name="create post" value="Create post" class="btn btn-success">
               {% csrf_token %}
             </form>
           </div>
@@ -29,7 +29,7 @@
 <script src="/static/js/jquery-ui.js"></script>
 <script>
 $( function() {
-  $( "#id_expiring_date" ).datepicker( { minDate: 0 } );
+  $( "#id_expiring_date" ).datepicker( { minDate: 1 } );
   $( "#id_expiring_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 } );
 </script>

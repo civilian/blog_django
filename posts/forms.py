@@ -1,8 +1,17 @@
+import datetime
+
 from django import forms
+from django.core.exceptions import ValidationError
 
 from posts.models import Post
 
+EXPIRATION_DATE_IS_WRONG = 'The expiring date needs to be after the publication date'
+
 class PostForm(forms.models.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.instance.publication_date = datetime.date.today()
 
     class Meta:
         model = Post
@@ -22,3 +31,10 @@ class PostForm(forms.models.ModelForm):
                 'class': 'form-control'
             }),
         }
+
+    def clean_expiring_date(self):
+        expiring_date = self.cleaned_data['expiring_date']
+        publication_date = self.instance.publication_date
+        if publication_date > expiring_date:
+            raise ValidationError(EXPIRATION_DATE_IS_WRONG)
+        return expiring_date

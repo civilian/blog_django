@@ -46,6 +46,10 @@ def get_dict_from_post(post):
     }
     return data
 
+def get_date_with_time_delay(time_delay):
+    date_with_time_delay = datetime.date.today() + datetime.timedelta(days=time_delay)
+    return date_with_time_delay.strftime('%Y-%m-%d')
+
 class PostFactory(factory.django.DjangoModelFactory):
 
     class Meta:
@@ -56,5 +60,5 @@ class PostFactory(factory.django.DjangoModelFactory):
     title = 'Title blog post'
     content ='Content for blog post'
     image = get_test_image()
-    publication_date = datetime.datetime.now()
+    publication_date = datetime.date.today()
     expiring_date = get_expiring_date(publication_date)

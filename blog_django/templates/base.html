@@ -160,7 +160,7 @@
       <header class="ms-header ms-header-dark">
         <div class="container container-full">
           <div class="ms-title">
-            <a href="index.html">
+            <a href="{% url 'home' %}">
               <!-- <img src="/static/img/demo/logo-header.png" alt=""> -->
               <span class="ms-logo animated zoomInDown animation-delay-5">B</span>
               <h1 class="animated fadeInRight animation-delay-6">{{ brand_first_word }}
@@ -220,7 +220,27 @@
         {% block header_paragraph %}
         {% endblock %}
       </div>
+
+
       <div class="container">
+        {% if messages %}
+          <div class="row">
+            <div id="messages" class="col-md-12">
+              {% for message in messages%}
+                {% if message.level_tag == 'success' %}
+                  <div class="alert alert-success">
+                    {{ message }}
+                  </div>
+                {% else %}
+                  <div class="alert alert-warning">
+                    {{ message }}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
         {% block content %}
         {% endblock %}
       </div>

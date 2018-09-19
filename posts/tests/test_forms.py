@@ -1,9 +1,10 @@
 import tempfile
+import datetime
 
 from django.test import TestCase, override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from posts.forms import PostForm
+from posts.forms import PostForm, EXPIRATION_DATE_IS_WRONG
 from posts.tests import util
 from posts.tests.util import PostFactory
 from posts.models import Post
@@ -22,7 +23,7 @@ class PostFormTest(TestCase):
         self.assertTrue(form.is_valid())
 
 
-    def test_errors_with_incorrect_data(self):
+    def test_form_validation_blank_content(self):
         post = PostFactory.build(content='')
         data = util.get_dict_from_post(post)
         form = PostForm(data=data)
@@ -52,3 +53,16 @@ class PostFormTest(TestCase):
         new_post = form.save()
 
         self.assertEqual(post.image, Post.objects.first().image)
+
+    def test_form_validation_expiring_date(self):
+        post = util.get_valid_post_object()
+
+        a_day = datetime.timedelta(days=1)
+        post.expiring_date = post.publication_date - a_day
+
+        data = util.get_dict_from_post(post)
+
+        form = PostForm(data)
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['expiring_date'],
+            [EXPIRATION_DATE_IS_WRONG])

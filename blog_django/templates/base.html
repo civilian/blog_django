@@ -181,7 +181,7 @@
       <nav class="navbar navbar-static-top yamm ms-navbar ms-navbar-dark">
         <div class="container container-full">
           <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{% url 'home' %}">
               <!-- <img src="/static/img/demo/logo-navbar.png" alt=""> -->
               <span class="ms-logo ms-logo-sm">B</span>
               <span class="ms-title">{{ brand_first_word }}
@@ -201,6 +201,7 @@
                 <ul class="dropdown-menu">
                   <li>
                     <a href="{% url 'posts:create' %}">Create New Post</a>
+                    <a href="{% url 'posts:index' %}">Show All Posts</a>
                   </li>
                 </ul>
               </li>
@@ -278,9 +279,8 @@
           <a class="collapsed" role="button" data-toggle="collapse" data-parent="#slidebar-menu" href="#sc5" aria-expanded="false" aria-controls="sc5">
              Posts </a>
           <ul id="sc5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="sch5">
-            <li>
-              <a href="{% url 'posts:create' %}">Create New Post</a>
-            </li>
+            <li><a href="{% url 'posts:create' %}">Create New Post</a></li>
+            <li><a href="{% url 'posts:index' %}">Show All Posts</a></li>
           </ul>
         </li>
       </ul>

@@ -23,3 +23,8 @@ def store(request):
 def show(request,  post_id):
     post = Post.objects.get(id=post_id)
     return render(request, 'posts/show.html', {'post': post})
+
+
+def index(request):
+    posts = Post.objects.all()
+    return render(request, 'posts/index.html', {'posts': posts})

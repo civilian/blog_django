@@ -5,7 +5,7 @@ class BasePage(object):
     def __init__(self, test):
         self.test = test
 
-
+    @wait
     def check_message_in_messages(self, text_message):
         messages = self.test.browser.find_elements_by_css_selector('#messages div')
         self.test.assertIn(text_message, [message.text for message in messages])

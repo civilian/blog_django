@@ -102,3 +102,20 @@ class ShowPostViewTest(TestCase):
         response = self.client.get(reverse('posts:show', kwargs={'post_id': correct_post.id}))
 
         self.assertEqual(response.context['post'], correct_post)
+
+
+class IndexPostView(TestCase):
+
+    def test_uses_index_post_template(self):
+        response = self.client.get(reverse('posts:index'))
+        self.assertTemplateUsed(response, 'posts/index.html')
+
+
+    def test_displays_correct_posts(self):
+        first_post = PostFactory(title='first post title')
+        second_post = PostFactory(title='second post title')
+
+        response = self.client.get(reverse('posts:index'))
+
+        self.assertContains(response, 'first post title')
+        self.assertContains(response, 'second post title')

@@ -1,6 +1,4 @@
 -In the role for local development you can only put the update the virtualenv
 and the database. It's not wort it. Just created by hand.
 
--Creating the first test.
-  - I skip to be able to just save it.
-  - Tests but not tdd.
+- In test_index_post_shows_and_can_be_consulted deciding the size of the history

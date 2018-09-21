@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog Django | Posts Index {% endblock %}
+
+{% block header_text %}All Posts{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      {% for post in posts %}
+        <article class="card card-primary wow zoomInRight animation-delay-5 mb-4">
+          <div class="card-block card-block-big">
+            <div class="row">
+              <div class="col-lg-6">
+                {% if post.image %}
+                  <img src="{{ post.image.url }}" alt="" class="img-responsive mb-4"> </div>
+                {% endif %}
+              <div class="col-lg-6 mb-4">
+                <h3 class="no-mt">
+                  <a href="javascript:void(0)">{{ post.title }}</a>
+                </h3>
+                <p>{{ post.content }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-8">
+                <span class="ml-1 hidden-xs">
+                  <i class="zmdi zmdi-time mr-05 color-info"></i>
+                  <span class="color-medium-dark">{{ post.publication_date }}</span>
+                </span>
+              </div>
+              <div class="col-lg-4 text-right">
+                <a href="{% url 'posts:show' post.id %}" class="btn btn-primary btn-raised btn-block animate-icon">Read More
+                  <i class="ml-1 no-mr zmdi zmdi-long-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li>
+            <a href="javascript:void(0)" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="javascript:void(0)">1</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">2</a>
+          </li>
+            <a href="javascript:void(0)" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+{% endblock%}

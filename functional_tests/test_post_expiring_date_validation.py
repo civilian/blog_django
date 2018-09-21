@@ -9,13 +9,13 @@ class RegisterAPostTest(FunctionalTest):
 
     def test_cannot_add_post_with_bad_expiration_date(self):
         # Nato goes blog and starts a new post
-        self.browser.get(self.live_server_url)
         create_post_page = CreatePostPage(self).go_to_create_post_page()
         create_post_page.write_in_title_input_box('Awesome blog post')
         create_post_page.write_in_content_input_box('Content of the post')
 
         # He creates an expiring_date that does not make sense
-        expiring_date = util.get_date_with_time_delay(-1)
+        today_minus_a_day = datetime.date.today() - datetime.timedelta(days=1)
+        expiring_date = today_minus_a_day.strftime('%Y-%m-%d')
         create_post_page.write_expiring_date(expiring_date)
 
         create_post_page.click_create_post()

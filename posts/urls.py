@@ -8,4 +8,5 @@ urlpatterns = [
     path('store', views.store, name='store'),
     # TODO: need the tests for show
     path('show/<int:post_id>/', views.show, name='show'),
+    path('index/', views.index, name='index'),
 ]

@@ -31,6 +31,8 @@ def get_test_image():
         content=open(test_image.name, 'rb').read(),
         content_type='image/png')
 
+# TODO: Get a way so that you can create Posts with a normal image
+# from the factory
 def get_valid_post_object():
     post = PostFactory.build()
     post.image = get_test_image()
@@ -46,9 +48,6 @@ def get_dict_from_post(post):
     }
     return data
 
-def get_date_with_time_delay(time_delay):
-    date_with_time_delay = datetime.date.today() + datetime.timedelta(days=time_delay)
-    return date_with_time_delay.strftime('%Y-%m-%d')
 
 class PostFactory(factory.django.DjangoModelFactory):
 

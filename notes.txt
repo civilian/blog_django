@@ -1,4 +1,3 @@
 -In the role for local development you can only put the update the virtualenv
 and the database. It's not wort it. Just created by hand.
-
-- In test_index_post_shows_and_can_be_consulted deciding the size of the history
+-When editing post even if you put the same file it creates a new one.

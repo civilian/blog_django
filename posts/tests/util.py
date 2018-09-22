@@ -31,11 +31,17 @@ def get_test_image():
         content=open(test_image.name, 'rb').read(),
         content_type='image/png')
 
-# TODO: Get a way so that you can create Posts with a normal image
-# from the factory
-def get_valid_post_object():
-    post = PostFactory.build()
+
+def get_valid_post_object(*args, **kwargs):
+    post = PostFactory.build(*args, **kwargs)
     post.image = get_test_image()
+    return post
+
+
+def save_valid_post_object(*args, **kwargs):
+    post = PostFactory.build(*args, **kwargs)
+    post.image = get_test_image()
+    post.save()
     return post
 
 

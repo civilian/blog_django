@@ -39,4 +39,3 @@ $ python manage.py test
 * The instructions to use the Vagrantfile and the ansible.
 * Functional tests can be executed in the vagrant machine.
 * Decide what to do with the role provision-project-foundation
-* Put the content of the posts to show shorter in the index

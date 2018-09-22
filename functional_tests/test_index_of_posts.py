@@ -1,6 +1,6 @@
 from .base import FunctionalTest
-from functional_tests.create_post_page import CreatePostPage
-from functional_tests.index_post_page import IndexPostPage
+from functional_tests.pages.create_post_page import CreatePostPage
+from functional_tests.pages.index_post_page import IndexPostPage
 from posts.tests.util import PostFactory
 
 class IndexPostTests(FunctionalTest):
@@ -17,7 +17,7 @@ class IndexPostTests(FunctionalTest):
 
         # He clicks the Read More link and can see that he is in the page
         # for that post
-        post = index_post_page.get_post(first_post.title)
+        post = index_post_page.get_post_from_this_page(first_post.title)
         post.find_element_by_link_text('READ MORE').click()
 
         self.wait_for(
@@ -26,7 +26,7 @@ class IndexPostTests(FunctionalTest):
 
         # He creates another post and again saves the url
         second_post = PostFactory.build(title='Second post title')
-        create_post_page = CreatePostPage(self).create_post(second_post)
+        create_post_page.create_post(second_post)
         second_post_url = self.browser.current_url
 
         # And now he sees the new created post in the index
@@ -34,7 +34,7 @@ class IndexPostTests(FunctionalTest):
         index_post_page.wait_for_title_post_in_the_posts(second_post.title)
 
         # And he checks is the page that shows him the post
-        post = index_post_page.get_post(second_post.title)
+        post = index_post_page.get_post_from_this_page(second_post.title)
         post.find_element_by_link_text('READ MORE').click()
         self.wait_for(
             lambda: self.assertEqual(self.browser.current_url, second_post_url)

@@ -1,5 +1,5 @@
 from functional_tests.base import wait
-from functional_tests.base_page import BasePage
+from .base_page import BasePage
 
 class HomePage(BasePage):
 

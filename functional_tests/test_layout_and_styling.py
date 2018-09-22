@@ -1,6 +1,6 @@
 
 from .base import FunctionalTest
-from functional_tests.home_page import HomePage
+from functional_tests.pages.home_page import HomePage
 
 class LayoutAndStyling(FunctionalTest):
 

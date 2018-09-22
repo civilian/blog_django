@@ -4,18 +4,18 @@
   <link rel="stylesheet" href="/static/css/jquery-ui.css" />
 {% endblock %}
 
-{% block title %}Blog Django | Create New Post{% endblock %}
+{% block title %}Blog Django | Edit Post{% endblock %}
 
-{% block header_text %}Create New Post{% endblock %}
+{% block header_text %}Edit Post{% endblock %}
 
 {% block content %}
   <div class="row">
       <div class="col-md-12">
         <div class="card animated materialU animation-delay-5">
           <div class="card-block card-block-big">
-            <form action="{% url 'posts:store' %}" method="post" enctype='multipart/form-data'>
+            <form action="{% url 'posts:update' form.instance.id %}" method="post" enctype='multipart/form-data'>
               {{ form }}
-              <input type="submit" name="create post" value="Create post" class="btn btn-success">
+              <input type="submit" name="save changes" value="Save Changes" class="btn btn-success">
               {% csrf_token %}
             </form>
           </div>
@@ -28,6 +28,7 @@
 {% block scripts %}
 <script src="/static/js/jquery-ui.js"></script>
 <script>
+  
 $(document).ready( function() {
   var date = $("#id_expiring_date").val()
   $( "#id_expiring_date" ).datepicker( {minDate: 1} );

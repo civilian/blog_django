@@ -1,7 +1,7 @@
 import datetime
 
 from .base import FunctionalTest
-from functional_tests.create_post_page import CreatePostPage
+from functional_tests.pages.create_post_page import CreatePostPage
 from posts.tests import util
 from posts.tests.util import PostFactory
 
@@ -22,8 +22,8 @@ class RegisterAPostTest(FunctionalTest):
         # He after finish saves the blog post
         # The page shows him a success message telling him the blog has been
         # created
-        post = PostFactory()
-        create_post_page = CreatePostPage(self).create_post(post)
+        post = PostFactory.build()
+        CreatePostPage(self).create_post(post)
 
         # He puts the image for the post
         ## TODO:

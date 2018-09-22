@@ -1,7 +1,7 @@
 import datetime
 
 from .base import FunctionalTest
-from functional_tests.create_post_page import CreatePostPage
+from functional_tests.pages.create_post_page import CreatePostPage
 from posts.tests import util
 from posts.forms import EXPIRATION_DATE_IS_WRONG
 

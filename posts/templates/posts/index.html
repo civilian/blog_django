@@ -35,7 +35,11 @@
                 </a>
                 <a href="{% url 'posts:edit' post.id %}" class="btn btn-success btn-raised btn-block animate-icon">Edit Post
                   <i class="ml-1 no-mr zmdi zmdi-long-arrow-right"></i>
-                </a>  
+                </a>
+                <form action="{% url 'posts:delete' post.id %}" method="post">
+                  <input type="submit" value="Delete Post" name="delete post" class="btn btn-danger btn-raised btn-block animate-icon">
+                  {% csrf_token %}
+                </form>
               </div>
             </div>
           </div>

@@ -45,3 +45,12 @@ def update(request, post_id):
             messages.success(request, 'The blog post has been updated')
             return redirect(reverse('posts:show', kwargs={'post_id': post.id}))
         return render(request, 'posts/edit.html', {'form': form})
+
+
+def delete(request, post_id):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, id=post_id)
+        post.delete()
+        messages.success(request, 'The blog post has been succesfully deleted')
+        return redirect(reverse('posts:index'))
+

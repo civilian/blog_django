@@ -1,6 +1,6 @@
 db.sqlite3
 geckodriver.log
-venv
+/venv
 __pychache__
 *.pyc
 /static
@@ -9,10 +9,10 @@ ubuntu-bionic-18.04-cloudimg-console.log
 site.retry
 local-development.retry
 /deploy_tools/bitbucket
-.env
+/.env
 runonce
-.directory
+/.directory
 deploy_tools/provision.and.deploy.ansible/roles/provision-project-foundation/templates/bitbucket
 functional_tests/screendumps
 /media
-.vscode
+/.vscode

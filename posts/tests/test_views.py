@@ -250,3 +250,29 @@ class UpdatePostViewTest(TestCase):
 
         self.assertEqual(response.status_code, 404)
 
+class DeletePostTest(TestCase):
+
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
+    def test_deletes_view_redirects_to_index(self):
+        post = PostFactory()
+        response = self.client.post(reverse('posts:delete', kwargs={'post_id': post.id}))
+        self.assertRedirects(response, reverse('posts:index'))
+    
+
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
+    def test_deletes_view_destroys_a_post(self):
+        first_post = PostFactory(title='First post')
+        PostFactory(title='Second post')
+
+        self.client.post(reverse('posts:delete', kwargs={'post_id': first_post.id}))
+
+        self.assertEqual(Post.objects.count(), 1)
+
+
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
+    def test_404_if_post_does_not_exist(self):
+        saved_post = PostFactory()
+
+        response = self.client.post(reverse('posts:delete', kwargs={'post_id': saved_post.id+1 }))
+
+        self.assertEqual(response.status_code, 404)

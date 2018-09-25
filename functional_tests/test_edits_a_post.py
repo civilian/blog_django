@@ -31,6 +31,7 @@ class EditAPostTest(FunctionalTest):
 
         # Then he presses the save button
         edit_post_page.click_save_post()
+        edit_post_page.check_message_in_messages('The blog post has been updated')
 
         # And he can see the post has changed
         body_text = self.browser.find_element_by_tag_name('body').text

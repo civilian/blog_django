@@ -50,9 +50,10 @@ class PostFormTest(TestCase):
 
         file_dict = {'image': post.image}
         form = PostForm(data, file_dict)
-        new_post = form.save()
+        form.save()
 
         self.assertEqual(post.image, Post.objects.first().image)
+
 
     def test_form_validation_expiring_date(self):
         post = util.get_valid_post_object()

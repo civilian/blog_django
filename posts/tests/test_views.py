@@ -180,7 +180,7 @@ class UpdatePostViewTest(TestCase):
         self.assertEqual(post.content, saved_post.content)
         self.assertEqual(post.image, saved_post.image)
         self.assertEqual(post.expiring_date.strftime("%Y-%m-%d"), saved_post.expiring_date.strftime("%Y-%m-%d"))
-        self.assertEqual(saved_post.publication_date, datetime.date.today())
+        self.assertEqual(post.publication_date.strftime("%Y-%m-%d"), saved_post.publication_date.strftime("%Y-%m-%d"))
 
     def POST_object_to_update_url(self, post):
         return self.client.post(

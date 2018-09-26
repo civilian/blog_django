@@ -8,7 +8,7 @@ class Post(models.Model):
     content = models.TextField()
     # TODO: put the required in image.
     image = models.ImageField(blank=True, null=True)
-    publication_date = models.DateField(default=datetime.date.today)
+    publication_date = models.DateField()
     expiring_date = models.DateField()
 
     def __str__(self):

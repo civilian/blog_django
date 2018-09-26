@@ -26,6 +26,7 @@ class CreatePostPage(PostFormPage):
         self.write_in_content_input_box(post.content)
         # He puts the image for the post
         ## TODO:
+        self.write_publication_date(post.publication_date.strftime('%Y-%m-%d'))
         self.write_expiring_date(post.expiring_date.strftime('%Y-%m-%d'))
         self.click_create_post()
         self.check_message_in_messages('The blog post has been created')

@@ -28,12 +28,22 @@
 {% block scripts %}
 <script src="/static/js/jquery-ui.js"></script>
 <script>
-  
+$("#id_publication_date").change(function(){
+  time_of_publication_date = $( "#id_publication_date" ).datepicker("getDate").getTime();
+  $( "#id_expiring_date" ).datepicker( "option", "minDate", new Date(time_of_publication_date) );
+} );
+
 $(document).ready( function() {
-  var date = $("#id_expiring_date").val()
-  $( "#id_expiring_date" ).datepicker( {minDate: 1} );
+
+  var publication_date = $("#id_publication_date").val()
+  $( "#id_publication_date" ).datepicker();
+  $( "#id_publication_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+  $( "#id_publication_date" ).val(publication_date)
+
+  var expiration_date = $( "#id_expiring_date" ).val()
+  $( "#id_expiring_date" ).datepicker();
   $( "#id_expiring_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-  $("#id_expiring_date").val(date)
+  $( "#id_expiring_date" ).val(expiration_date)
 } );
 </script>
 

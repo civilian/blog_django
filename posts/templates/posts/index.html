@@ -19,7 +19,7 @@
                 <h3 class="no-mt">
                   <a href="javascript:void(0)">{{ post.title }}</a>
                 </h3>
-                <p>{{ post.content }}</p>
+                <p>{{ post.content |truncatechars:100 }}</p>
               </div>
             </div>
             <div class="row">

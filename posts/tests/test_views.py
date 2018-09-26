@@ -5,6 +5,7 @@ import copy
 from django.test import TestCase
 from django.urls import reverse
 from django.test import override_settings
+from faker import Faker
 
 from posts.forms import PostForm
 from posts.tests import util
@@ -132,6 +133,18 @@ class IndexPostView(TestCase):
         self.assertContains(response, 'first post title')
         self.assertContains(response, 'second post title')
         self.assertNotContains(response, 'This post has not been saved')
+    
+
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
+    def test_displays_trimmed_content(self):
+        fake = Faker()
+        post = util.save_valid_post_object(content=fake.sentence(nb_words=100))
+
+        response = self.client.get(reverse('posts:index'))
+
+        trimmed_content = post.content[:97] + '...'
+        self.assertContains(response, trimmed_content)
+        
 
 
 @override_settings(MEDIA_ROOT=tempfile.gettempdir())
@@ -228,7 +241,7 @@ class UpdatePostViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'posts/edit.html')
 
-
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
     def test_for_invalid_post_nothing_saved_to_db(self):
         correct_post = util.save_valid_post_object()
         

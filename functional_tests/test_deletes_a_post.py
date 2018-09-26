@@ -12,12 +12,12 @@ class DeletesAPostTests(FunctionalTest):
         CreatePostPage(self).create_post(first_post)
         CreatePostPage(self).create_post(second_post)
 
-        # He can see the post in the index page of the posts
+        # He can see the posts in the index
         index_post_page = IndexPostPage(self).go_to_index_post_page()
         index_post_page.wait_for_title_post_in_the_posts(first_post.title)
         index_post_page.wait_for_title_post_in_the_posts(second_post.title)
 
-        # He clicks the Delete button
+        # He clicks the Delete button of one post
         post = index_post_page.get_post_from_this_page(second_post.title)
         post.find_element_by_name('delete post').click()
         index_post_page.check_message_in_messages('The blog post has been succesfully deleted')

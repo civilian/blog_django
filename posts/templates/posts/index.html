@@ -19,7 +19,7 @@
                 <h3 class="no-mt">
                   <a href="javascript:void(0)">{{ post.title }}</a>
                 </h3>
-                <p>{{ post.content |truncatechars:100 }}</p>
+                <p>{{ post.content | truncatechars:100 }}</p>
               </div>
             </div>
             <div class="row">
@@ -45,25 +45,6 @@
           </div>
         </article>
       {% endfor %}
-      <nav aria-label="Page navigation">
-        <ul class="pagination">
-          <li>
-            <a href="javascript:void(0)" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href="javascript:void(0)">1</a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">2</a>
-          </li>
-            <a href="javascript:void(0)" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
     </div>
   </div>
 {% endblock%}

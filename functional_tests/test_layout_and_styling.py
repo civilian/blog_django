@@ -2,7 +2,7 @@
 from .base import FunctionalTest
 from functional_tests.pages.home_page import HomePage
 
-class LayoutAndStyling(FunctionalTest):
+class LayoutAndStylingTest(FunctionalTest):
 
     def test_layout_and_styling(self):
         #  Nato goes to the home page

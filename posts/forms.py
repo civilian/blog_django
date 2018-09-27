@@ -11,7 +11,6 @@ class PostForm(forms.models.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.instance.publication_date = datetime.date.today()
 
     class Meta:
         model = Post
@@ -38,7 +37,7 @@ class PostForm(forms.models.ModelForm):
 
     def clean_expiring_date(self):
         expiring_date = self.cleaned_data['expiring_date']
-        publication_date = self.instance.publication_date
+        publication_date = self.cleaned_data['publication_date']
         if publication_date > expiring_date:
             raise ValidationError(EXPIRATION_DATE_IS_WRONG)
         return expiring_date

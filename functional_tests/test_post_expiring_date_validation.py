@@ -5,7 +5,7 @@ from functional_tests.pages.create_post_page import CreatePostPage
 from posts.tests import util
 from posts.forms import EXPIRATION_DATE_IS_WRONG
 
-class RegisterAPostTest(FunctionalTest):
+class CannontAddAPostWithBadExpirationDateTest(FunctionalTest):
 
     def test_cannot_add_post_with_bad_expiration_date(self):
         # Nato goes blog and starts a new post

@@ -1,47 +1,31 @@
+import datetime
+import time
+
 from .base import FunctionalTest
 from functional_tests.pages.create_post_page import CreatePostPage
-from functional_tests.pages.index_post_page import IndexPostPage
+from functional_tests.pages.index_blog_page import IndexBlogPage
 from posts.tests.util import PostFactory
 
-class IndexPostTests(FunctionalTest):
+class IndexBlogDoesNotShowExpiredPostTests(FunctionalTest):
 
-    def test_index_post_shows_and_can_be_consulted(self):
-        # Nato goes to the blog and creates a posts
-        not_expired_post = PostFactory.build(title='Good expiring date')
-        CreatePostPage(self).create_post(not_expired_post)
-
-
-        expired_post = PostFactory.build(title='Second post title')
+    def test_index_blog_does_not_show_expired_post(self):
+        # Nato goes to the blog and creates an expired post
+        expired_post = PostFactory.build(title='Expired post')
         expired_post.publication_date = datetime.date.today() - datetime.timedelta(1)
+        expired_post.expiring_date = expired_post.publication_date
+        create_post_page = CreatePostPage(self).create_post(expired_post)
 
-        create_post_page = CreatePostPage(self).create_post(second_post)
+        # And creates a non expired post
+        not_expired_post = PostFactory.build(title='Not expired post')
+        not_expired_post.publication_date = datetime.date.today()
+        not_expired_post.expiring_date = datetime.date.today()
+        create_post_page.create_post(not_expired_post)
         
-
         # He can see the post in the index page of the posts
-        index_post_page = IndexPostPage(self).go_to_index_post_page()
-        index_post_page.wait_for_title_post_in_the_posts(first_post.title)
+        index_post_page = IndexBlogPage(self).go_to_index_blog_page()
+        index_post_page.wait_for_title_post_in_the_posts(not_expired_post.title)
 
-        # He clicks the Read More link and can see that he is in the page
-        # for that post
-        post = index_post_page.get_post_from_this_page(first_post.title)
-        post.find_element_by_link_text('READ MORE').click()
+        # And as expected he can't see the expired post
+        body = self.browser.find_element_by_tag_name('body')       
+        self.assertNotIn(expired_post.title, body.text)
 
-        self.wait_for(
-            lambda: self.assertEqual(self.browser.current_url, first_post_url)
-        )
-
-        # He creates another post and again saves the url
-        second_post = PostFactory.build(title='Second post title')
-        create_post_page.create_post(second_post)
-        second_post_url = self.browser.current_url
-
-        # And now he sees the new created post in the index
-        index_post_page = IndexPostPage(self).go_to_index_post_page()
-        index_post_page.wait_for_title_post_in_the_posts(second_post.title)
-
-        # And he checks is the page that shows him the post
-        post = index_post_page.get_post_from_this_page(second_post.title)
-        post.find_element_by_link_text('READ MORE').click()
-        self.wait_for(
-            lambda: self.assertEqual(self.browser.current_url, second_post_url)
-        )

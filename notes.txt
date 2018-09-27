@@ -1,4 +1,4 @@
 -In the role for local development you can only put the update the virtualenv
 and the database. It's not wort it. Just created by hand.
 -When editing post even if you put the same file it creates a new one.
--test_index_post_show_shorter_content
+-blog_django test_views deciding how the dates work.

@@ -54,7 +54,7 @@ class HomePageViewTest(TestCase):
         self.assertContains(response, 'Good post')
         self.assertNotContains(response, 'Expired post')
 
-    
+
     @override_settings(MEDIA_ROOT=tempfile.gettempdir())
     def test_displays_post_that_expire_today(self):
         today_expires_post = PostFactory.build(title='Today expires post')
@@ -67,5 +67,16 @@ class HomePageViewTest(TestCase):
         self.assertContains(response, 'Today expires post')
     
 
-    # TODO: create displays only publication date appropiate post
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
+    def test_displays_only_publicated_posts(self):
+        PostFactory(title='Publicated post')
+
+        expired_post = PostFactory.build(title='Not publicated post')
+        expired_post.publication_date = datetime.date.today() + datetime.timedelta(1)
+        expired_post.save()
+
+        response = self.client.get(reverse('home'))
+
+        self.assertContains(response, 'Publicated post')
+        self.assertNotContains(response, 'Not publicated post')
     

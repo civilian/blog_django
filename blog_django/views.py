@@ -5,5 +5,6 @@ from posts.models import Post
 
 def home_page(request):
     today = datetime.date.today()
-    posts = Post.objects.filter(expiring_date__gte=today)
+    posts = Post.objects.filter(expiring_date__gte=today,
+                                publication_date__lte=today)
     return render(request, 'blog_django/home.html', {'posts':  posts})

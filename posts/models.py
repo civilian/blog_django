@@ -19,4 +19,4 @@ class Post(models.Model):
             'publication_date': self.publication_date,
             'expiring_date': self.expiring_date,
         }
-        return data.__str__()
+        return repr(data)

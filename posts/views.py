@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import messages
+from django.http import JsonResponse
 
 from posts.forms import PostForm
 from posts.models import Post
@@ -54,3 +55,24 @@ def delete(request, post_id):
         messages.success(request, 'The blog post has been succesfully deleted')
         return redirect(reverse('posts:index'))
 
+
+def ajax_publication_date(request, post_id):
+    if request.is_ajax():
+        post = get_object_or_404(Post, id=post_id)
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            data = {
+                'message' : 'The publication date has been saved.'
+            }
+        else:
+            publication_date_errors = form.errors.get('publication_date')
+            if publication_date_errors == None:
+                data = {
+                    'message' : 'The publication date has not been saved.'
+                }
+            else:
+                data = {
+                    'message' : form.errors['publication_date'][0]
+                }
+        return JsonResponse(data)

@@ -49,8 +49,8 @@ def get_dict_from_post(post):
     data = {'title': post.title,
         'content': post.content,
         'image': post.image,
-        'publication_date': post.publication_date.strftime("%Y-%m-%d"),
-        'expiring_date': post.expiring_date.strftime("%Y-%m-%d"),
+        'publication_date': post.publication_date,
+        'expiring_date': post.expiring_date,
     }
     return data
 

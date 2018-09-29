@@ -9,8 +9,8 @@ class DeletesAPostTests(FunctionalTest):
         # Nato goes to the blog and creates two post
         first_post = PostFactory.build(title='First post title')
         second_post = PostFactory.build(title='Second post title')
-        CreatePostPage(self).create_post(first_post)
-        CreatePostPage(self).create_post(second_post)
+        create_post_page = CreatePostPage(self).create_post(first_post)
+        create_post_page.create_post(second_post)
 
         # He can see the posts in the index
         index_post_page = IndexPostPage(self).go_to_index_post_page()

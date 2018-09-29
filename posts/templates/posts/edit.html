@@ -31,6 +31,18 @@
 $("#id_publication_date").change(function(){
   time_of_publication_date = $( "#id_publication_date" ).datepicker("getDate").getTime();
   $( "#id_expiring_date" ).datepicker( "option", "minDate", new Date(time_of_publication_date) );
+
+  $.ajax({
+    url: "{% url 'posts:ajax_publication_date' form.instance.id %}",
+    data: $("form").serialize(),
+    cache: false,
+    type: 'post',
+    success: function (data) {
+      $("#messages").html(`<div  class='alert alert-success'> ${data.message} </div>`);
+      // $("#add_category .modal-body").html(data);
+    }
+  });
+  
 } );
 
 $(document).ready( function() {

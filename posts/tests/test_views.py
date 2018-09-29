@@ -108,9 +108,7 @@ class ShowPostViewTest(TestCase):
     
 
     def test_404_if_post_does_not_exist(self):
-        saved_post = PostFactory()
-
-        response = self.client.get(reverse('posts:show', kwargs={'post_id': saved_post.id+1 }))
+        response = self.client.get(reverse('posts:show', kwargs={'post_id': 1 }))
 
         self.assertEqual(response.status_code, 404)
 
@@ -157,9 +155,7 @@ class EditPostView(TestCase):
 
 
     def test_404_if_post_does_not_exist(self):
-        saved_post = PostFactory()
-
-        response = self.client.get(reverse('posts:edit', kwargs={'post_id': saved_post.id+1 }))
+        response = self.client.get(reverse('posts:edit', kwargs={'post_id': 1 }))
 
         self.assertEqual(response.status_code, 404)
 
@@ -255,11 +251,8 @@ class UpdatePostViewTest(TestCase):
         self.assertPostIsSavedCorrectly(correct_post, saved_post)
 
 
-    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
     def test_404_if_post_does_not_exist(self):
-        saved_post = PostFactory()
-
-        response = self.client.post(reverse('posts:update', kwargs={'post_id': saved_post.id+1 }))
+        response = self.client.post(reverse('posts:update', kwargs={'post_id': 1 }))
 
         self.assertEqual(response.status_code, 404)
 
@@ -282,10 +275,98 @@ class DeletePostTest(TestCase):
         self.assertEqual(Post.objects.count(), 1)
 
 
-    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
     def test_404_if_post_does_not_exist(self):
-        saved_post = PostFactory()
-
-        response = self.client.post(reverse('posts:delete', kwargs={'post_id': saved_post.id+1 }))
+        response = self.client.post(reverse('posts:delete', kwargs={'post_id': 1 }))
 
         self.assertEqual(response.status_code, 404)
+
+
+class AjaxPublicationDateTest(TestCase):
+
+    def POST_post_object_to_ajax_publication_date_url(self, post):
+        return self.client.post(
+                    reverse('posts:ajax_publication_date', 
+                    kwargs={'post_id': post.id }), 
+                    data=util.get_dict_from_post(post),
+                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
+    def test_POST_correct_date_answers_correct_json(self):
+        post = PostFactory()
+        post.publication_date = datetime.date.today()
+
+        response = self.POST_post_object_to_ajax_publication_date_url(post)
+
+        self.assertJSONEqual(str(response.content, encoding='utf8'),
+                            {'message' : 'The publication date has been saved.'})
+
+
+    def test_404_if_post_does_not_exist(self):
+        response = self.client.post(
+                    reverse('posts:ajax_publication_date', 
+                    kwargs={'post_id': 1 }), 
+                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        self.assertEqual(response.status_code, 404)
+
+
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
+    def test_POST_incorrect_date_answers_not_saved_json(self):
+        post = PostFactory()
+        post.publication_date = '---'
+
+        response = self.POST_post_object_to_ajax_publication_date_url(post)
+
+        self.assertJSONEqual(str(response.content, encoding='utf8'),
+                            {'message' : 'Enter a valid date.'})
+    
+
+    # TODO: is this possible? it think yes
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
+    def test_POST_incorrect_post_answers_not_saved_json(self):
+        post = PostFactory()
+        post.title = ''
+        post.content = ''
+
+        response = self.POST_post_object_to_ajax_publication_date_url(post)
+
+        self.assertJSONEqual(str(response.content, encoding='utf8'),
+                            {'message' : 'The publication date has not been saved.'})
+    
+
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
+    def test_POST_correct_date_saves_new_post(self):
+        post = PostFactory()
+        post.publication_date = post.publication_date + datetime.timedelta(1)
+
+        self.POST_post_object_to_ajax_publication_date_url(post)
+
+        saved_post = Post.objects.first()
+
+        self.assertEqual(post.publication_date, saved_post.publication_date)
+
+
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
+    def test_POST_incorrect_post_does_not_change_saved_post(self):
+        post = PostFactory()
+        post.publication_date = post.publication_date + datetime.timedelta(1)
+        post.title = ''
+
+        self.POST_post_object_to_ajax_publication_date_url(post)
+
+        saved_post = Post.objects.first()
+
+        self.assertNotEqual(post.publication_date, saved_post.publication_date)
+    
+    
+    @override_settings(MEDIA_ROOT=tempfile.gettempdir())
+    def test_POST_incorrect_publication_date_does_not_change_saved_post(self):
+        post = PostFactory()
+        post.publication_date = '---'
+
+        self.POST_post_object_to_ajax_publication_date_url(post)
+
+        saved_post = Post.objects.first()
+
+        self.assertNotEqual(post.publication_date, saved_post.publication_date)

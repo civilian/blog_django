@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 
 from posts.models import Post
 
-EXPIRATION_DATE_IS_WRONG = 'The expiring date needs to be after the publication date'
+EXPIRATION_DATE_IS_WRONG = 'The expiring date needs to be after the publication date.'
 
 class PostForm(forms.models.ModelForm):
 
@@ -35,9 +35,11 @@ class PostForm(forms.models.ModelForm):
             }),
         }
 
-    def clean_expiring_date(self):
-        expiring_date = self.cleaned_data['expiring_date']
-        publication_date = self.cleaned_data['publication_date']
-        if publication_date > expiring_date:
-            raise ValidationError(EXPIRATION_DATE_IS_WRONG)
-        return expiring_date
+    def clean(self):
+        expiring_date = self.cleaned_data.get('expiring_date')
+        publication_date = self.cleaned_data.get('publication_date')
+        if publication_date == None or expiring_date == None:
+            pass
+        elif publication_date > expiring_date:
+            self._errors['expiring_date'] = [EXPIRATION_DATE_IS_WRONG]
+        return self.cleaned_data

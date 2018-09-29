@@ -11,4 +11,5 @@ urlpatterns = [
     path('edit/<int:post_id>/', views.edit, name='edit'),
     path('update/<int:post_id>/', views.update, name='update'),
     path('delete/<int:post_id>/', views.delete, name='delete'),
+    path('ajax_publication_date/<int:post_id>/', views.ajax_publication_date, name='ajax_publication_date'),
 ]

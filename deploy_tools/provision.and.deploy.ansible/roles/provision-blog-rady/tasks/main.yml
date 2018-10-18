@@ -1,3 +1,0 @@
----
-- name: print out the hostname of target
-  command: hostname

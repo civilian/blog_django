@@ -5,43 +5,48 @@
 # TODO: Check if the deploy user should be in the sudo group or not.
 - name: create common user for all the servers
   become: yes
-  user: name={{ project.user }} shell=/bin/bash createhome=yes
-        home=/home/{{ project.user }} 
-        password={{ project.user |password_hash('sha512') }}
-        groups="sudo"
-        comment="common user for all the servers"
-
-# TODO: Review those sources for more security
-# - name: Put the correct sources.list file
-#   template: backup=yes
-#             src=sources.list.j2
-#             dest=/etc/apt/sources.list
+  user: 
+      name: '{{ project.user }}' 
+      shell: /bin/bash 
+      createhome: yes
+      home: '/home/{{ project.user }}'
+      password: "{{ project.user | password_hash('sha512') }}"
+      groups: "sudo"
+      comment: "common user for all the servers"
 
 - name: Check if vim is already installed.
-  stat: path=/usr/bin/vim
+  stat: 
+    path: /usr/bin/vim
   register: vim_installed
 
 - name: Update apt cache if vim not installed
-  apt: update_cache=yes
+  become: yes
+  apt: 
+    update_cache: yes
   when: vim_installed.stat.exists == false
 
 # TODO: Maybe less time?, i don't know, maybe don't
 - name: Update apt cache if not done today
-  apt: update_cache=yes cache_valid_time=86400
+  become: yes
+  apt: 
+    update_cache: yes 
+    cache_valid_time: 86400
 
 - name: installing the packages for all the hosts
-  apt: pkg={{ item }} state=present
-  with_items: "{{ all_packages }}"
+  become: yes
+  apt: 
+    pkg: '{{ all_packages }}' 
+    state: present
 
 - name: Remove password authentication from ssh
+  become: yes
   replace:
-    dest=/etc/ssh/sshd_config
-    regexp='\#PasswordAuthentication yes'
-    replace='PasswordAuthentication no'
+    dest: /etc/ssh/sshd_config
+    regexp: '\#PasswordAuthentication yes'
+    replace: 'PasswordAuthentication no'
 
 - name: Add alias 'l' for ls
   replace:
-    dest=~/.bashrc
-    regexp='\#alias l'
-    replace='alias l'
-
+    dest: '/home/{{ project.user }}/.bashrc'
+    regexp: '\#alias l'
+    replace: 'alias l'

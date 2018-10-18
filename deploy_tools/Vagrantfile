@@ -6,19 +6,19 @@
 Vagrant.configure(2) do |config|
     config.vm.box = 'ubuntu/bionic64'
 
-    config.vm.network "forwarded_port", guest: 80, host: 8080
-    config.vm.network "forwarded_port", guest: 8000, host: 50777
+    blog_django_port = 50775
+    config.vm.network "forwarded_port", guest: blog_django_port, host: blog_django_port
 
-    config.vm.hostname = 'host'
+    config.vm.hostname = 'guest'
 
     config.vm.synced_folder "../", "/vagrant"
 
-    # config.vm.provider :virtualbox do |vb|
-    #    vb.gui = true
-    # end
+    config.vm.provider :virtualbox do |vb|
+       vb.gui = true
+    end
 
     config.vm.provision 'shell', inline: <<-SHELL
-         apt-get install python
+         sudo apt-get --assume-yes install python
     SHELL
 
     config.vm.provision 'ansible' do |ansible|

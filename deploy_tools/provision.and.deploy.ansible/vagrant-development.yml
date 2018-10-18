@@ -1,0 +1,27 @@
+---
+# TODO: Maybe put a changed_when because it always shows changed.
+
+- hosts: development
+  vars:
+      host: "{{ inventory_hostname }}"
+  roles:
+    - deploy-xserver-for-development-machine
+    - provision-projects-ssh-keys
+    # If you don't want more than one project per machine just put the project name
+    # to the url of the project
+    - role: provision-django-project
+      project_port: 50775
+      project_ssh_port: 2222
+      project_name: blog_django
+    - role: deploy-django-project
+      project_ssh_port: 2222
+      project_name: blog_django
+      repository: git@github.com:civilian/blog_django.git
+
+- hosts: development
+  vars:
+      host: "{{ inventory_hostname }}"
+  roles:
+    - deploy-functional-test-tools
+    - role: deploy-django-project-to-run-tests
+      project_name: blog_django

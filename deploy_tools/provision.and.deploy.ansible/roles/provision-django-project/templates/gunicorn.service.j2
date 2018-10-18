@@ -1,0 +1,17 @@
+[Unit]
+Description=Gunicorn server for {{ project_name }}
+
+[Service]
+User={{ project.user }}
+WorkingDirectory=/home/{{ project.user }}/sites/{{ project_name }}
+Restart=on-failure
+EnvironmentFile=/home/{{ project.user }}/sites/{{ project_name }}/.env
+
+ExecStart=/home/{{ project.user }}/sites/{{ project_name }}/venv/bin/gunicorn \
+    --bind unix:/tmp/{{ project_name }}.socket \
+    --access-logfile ../access.log \
+    --error-logfile ../error.log \
+    superlists.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

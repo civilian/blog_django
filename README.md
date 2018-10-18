@@ -7,7 +7,7 @@ This is a simple blog developed in Django.
 Linux
 
 ```sh
-$ pip install --upgrade virtualenv
+$ python3.6 -m pip install --upgrade virtualenv
 $ virtualenv -p /usr/bin/python3.6 venv
 $ source venv/bin/activate
 (venv) $ pip install -r requirements.txt

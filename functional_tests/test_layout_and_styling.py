@@ -6,8 +6,6 @@ class LayoutAndStylingTest(FunctionalTest):
 
     def test_layout_and_styling(self):
         #  Nato goes to the home page
-        self.browser.get(self.live_server_url)
-
         home_page = HomePage(self).go_to_home_page()
 
         self.browser.set_window_size(1024, 768)

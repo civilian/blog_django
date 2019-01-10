@@ -5,6 +5,7 @@ class BasePage(object):
     def __init__(self, test):
         self.test = test
 
+
     @wait
     def check_message_in_messages(self, text_message):
         messages = self.test.browser.find_elements_by_css_selector('#messages div')
@@ -13,3 +14,7 @@ class BasePage(object):
 
     def get_error_element(self):
         return self.test.browser.find_element_by_css_selector('.errorlist')
+    
+
+    def click_account_button(self):
+        self.test.browser.find_element_by_id('account_button').click()

@@ -2,3 +2,4 @@
 and the database. It's not wort it. Just created by hand.
 -When editing post even if you put the same file it creates a new one.
 -blog_django test_views deciding how the dates work.
+-I have decided in the tests everything is a button.

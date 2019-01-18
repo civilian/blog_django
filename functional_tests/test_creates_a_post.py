@@ -2,12 +2,11 @@ import datetime
 
 from .base import FunctionalTest
 from functional_tests.pages.create_post_page import CreatePostPage
-from posts.tests import util
 from posts.tests.util import PostFactory
 
-class RegisterAPostTest(FunctionalTest):
+class CreatesAPostTest(FunctionalTest):
 
-    def test_can_register_a_post(self):
+    def test_can_create_a_post(self):
         # Nato goes to check the home page of the new blog app
         # he has heard about
         self.browser.get(self.live_server_url)

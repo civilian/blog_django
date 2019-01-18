@@ -7,6 +7,7 @@ class IndexBasePage(BasePage):
         self.test.browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         return self.test.browser.find_elements_by_tag_name('article')
 
+
     @wait
     def wait_for_title_post_in_the_posts(self, title_text):
         posts = self.get_posts_for_this_page()

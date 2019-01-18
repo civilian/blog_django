@@ -1,22 +1,24 @@
 from .base import FunctionalTest
-from functional_tests.pages.home_page import HomePage
+from functional_tests.pages.account_register_popup_window import AccountRegisterPopupWindow
+import time
 
 class LoginTest(FunctionalTest):
 
     def test_can_create_user_and_log_in(self):
         # Nato goes to the new blog app 
         # and notices a person icon he clicks it
-        home_page = HomePage(self).go_to_home_page()
-        self.fail('Finish the test!!')
-        home_page.click_account_button()
 
         # Now he can see a couple of tabs so he clicks the tab
         # That says register
-        
-
+        account_register_popup = AccountRegisterPopupWindow(self).go_to_register_popup()
 
         # He fills the username, the email, the password, and
         # Retypes the password
+        account_register_popup.write_in_username_input_box('nato')
+        account_register_popup.write_in_email_input_box('nato@nato.com')
+        account_register_popup.write_in_password_input_box('natopassword')
+        account_register_popup.write_in_retype_password_input_box('natopassword')
+
 
         # He clicks the register now button
 

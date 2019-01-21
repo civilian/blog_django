@@ -32,12 +32,14 @@ class StorePostViewTest(TestCase):
         self.assertEqual(post.image, saved_post.image)
         self.assertEqual(post.expiring_date.strftime("%Y-%m-%d"), saved_post.expiring_date.strftime("%Y-%m-%d"))
 
+
     # TODO: test the view with methods that are not post
     def POST_object_to_store_url(self, post):
         return self.client.post(
             reverse('posts:store'),
             data= util.get_dict_from_post(post)
         )
+
 
     @override_settings(MEDIA_ROOT=tempfile.gettempdir())
     def test_POST_redirects_to_show_post_view(self):

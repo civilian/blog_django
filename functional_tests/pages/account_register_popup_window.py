@@ -23,3 +23,7 @@ class AccountRegisterPopupWindow(AccountBasePopupWindow):
 
     def write_in_retype_password_input_box(self, text):
         self.write_in_any_input(text, 'id_register_retype_password')
+    
+    
+    def click_register_user(self):
+        self.test.browser.find_element_by_name('register now').click()

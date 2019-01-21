@@ -19,8 +19,8 @@ class LoginTest(FunctionalTest):
         account_register_popup.write_in_password_input_box('natopassword')
         account_register_popup.write_in_retype_password_input_box('natopassword')
 
-
         # He clicks the register now button
+        account_register_popup.click_register_button()
 
         # The page tells him his user has been created
 

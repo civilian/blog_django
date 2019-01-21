@@ -127,8 +127,9 @@
                           <label class="control-label" for="ms-form-pass">Re-type Password</label>
                           <input id="id_register_retype_password" type="password" id="ms-form-pass" class="form-control"> </div>
                       </div>
-                      <button class="btn btn-raised btn-block btn-primary">Register Now</button>
+                      <input type="submit" name="register now" value="Register Now" class="btn btn-raised btn-block btn-primary">
                     </fieldset>
+                    {% csrf_token %}
                   </form>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="ms-recovery-tab">

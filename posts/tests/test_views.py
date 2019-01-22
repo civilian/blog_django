@@ -42,7 +42,7 @@ class StorePostViewTest(TestCase):
 
 
     @override_settings(MEDIA_ROOT=tempfile.gettempdir())
-    def test_POST_redirects_to_show_post_view(self):
+    def test_redirects_to_show_post_view(self):
         post = util.get_valid_post_object()
         response = self.POST_object_to_store_url(post)
         post = Post.objects.first()
@@ -50,7 +50,7 @@ class StorePostViewTest(TestCase):
 
 
     @override_settings(MEDIA_ROOT=tempfile.gettempdir())
-    def test_can_save_a_valid_POST_request(self):
+    def test_can_save_a_valid_post(self):
         post = util.get_valid_post_object()
         self.POST_object_to_store_url(post)
 

@@ -6,12 +6,12 @@ from django.urls import reverse
 from accounts.tests.util import UserFactory
 from accounts.tests import util
 
-class RegisterUserViewTest(TestCase):
+class SingUpViewTest(TestCase):
 
     def test_redirects_to_home_view(self):
         user = UserFactory.build()
         response = self.client.post(
-            reverse('accounts:register'),
+            reverse('accounts:sing_up'),
             data=util.get_register_dict_from_user(user)
         )
         self.assertRedirects(response, reverse('home'))

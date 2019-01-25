@@ -7,26 +7,21 @@ class AccountRegisterPopupWindow(AccountBasePopupWindow):
         self.go_to_account_popup()
         self.test.browser.find_element_by_id('id_register_tab').click()
         return self
-    
-    def write_in_any_input_by_name(self, text, name):
-        input = self.test.browser.find_element_by_name(name)
-        input.clear()
-        input.send_keys(text)
 
     def write_in_username_input_box(self, text):
-        self.write_in_any_input_by_name(text, 'username')
+        self.write_in_any_input_by_id(text, 'id_username')
     
 
     def write_in_email_input_box(self, text):
-        self.write_in_any_input_by_name(text, 'email')
+        self.write_in_any_input_by_id(text, 'id_email')
     
 
     def write_in_password_input_box(self, text):
-        self.write_in_any_input_by_name(text, 'password')
+        self.write_in_any_input_by_id(text, 'id_password')
     
 
     def write_in_retype_password_input_box(self, text):
-        self.write_in_any_input_by_name(text, 'retype_password')
+        self.write_in_any_input_by_id(text, 'id_retype_password')
     
     
     def click_register_button(self):

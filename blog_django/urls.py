@@ -7,6 +7,7 @@ from blog_django import views as blog_views
 urlpatterns = [
     path('', blog_views.home_page, name='home'),
     path('posts/', include('posts.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
 
 # TODO: Test in staging what happens to the url

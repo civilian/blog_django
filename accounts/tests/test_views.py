@@ -12,7 +12,7 @@ class RegisterUserViewTest(TestCase):
         user = UserFactory.build()
         response = self.client.post(
             reverse('accounts:register'),
-            data= util.get_dict_from_user(user)
+            data=util.get_register_dict_from_user(user)
         )
         self.assertRedirects(response, reverse('home'))
     

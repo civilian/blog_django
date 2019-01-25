@@ -2,6 +2,11 @@ from .base_page import BasePage
 
 class PostFormPage(BasePage):
 
+    def write_in_any_input(self, text, id):
+        input = self.test.browser.find_element_by_id(id)
+        input.clear()
+        input.send_keys(text)
+
     def write_in_title_input_box(self, text):
         self.write_in_any_input(text, 'id_title')
 

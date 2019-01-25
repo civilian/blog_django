@@ -9,11 +9,3 @@ class AccountBasePopupWindow(BasePage):
             lambda: self.test.browser.find_element_by_id('id_account_button').click()
         )
         return self
-
-
-    def click_register_button(self):
-        self.test.browser.find_element_by_id('id_register_tab').click()
-    
-
-    def write_in_username_input_box(self, text):
-        self.write_in_any_input(text, 'id_register_username')

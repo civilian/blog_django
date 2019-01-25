@@ -37,7 +37,7 @@ class StorePostViewTest(TestCase):
     def POST_object_to_store_url(self, post):
         return self.client.post(
             reverse('posts:store'),
-            data= util.get_dict_from_post(post)
+            data=util.get_dict_from_post(post)
         )
 
 

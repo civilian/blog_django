@@ -3,10 +3,11 @@ import factory
 
 from django.contrib.auth import get_user_model
 
-def get_dict_from_user(user):
-    data = {'username': user.title,
-        'email': user.content,
-        'password': user.image,
+def get_register_dict_from_user(user):
+    data = {'username': user.username,
+        'email': user.email,
+        'password': user.password,
+        'retype_password': user.password,
     }
     return data
 

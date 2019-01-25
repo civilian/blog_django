@@ -16,12 +16,6 @@ class BasePage(object):
         return self.test.browser.find_element_by_css_selector('.errorlist')
     
 
-    def write_in_any_input(self, text, id):
-        input = self.test.browser.find_element_by_id(id)
-        input.clear()
-        input.send_keys(text)
-    
-
     def go_to_home_page(self):
         self.test.browser.get(self.test.live_server_url)
         self.test.wait_for(

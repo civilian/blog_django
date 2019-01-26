@@ -1,4 +1,4 @@
-from accounts.forms import RegisterUserForm
+from accounts.forms import SignUpUserForm
 
 def brand_processor(request):
     brand_first_word = 'Blog'
@@ -9,7 +9,7 @@ def brand_processor(request):
     }
 
 def account_processor(request):
-    register_user_form = RegisterUserForm()
+    sign_up_user_form = SignUpUserForm()
     return {
-        'register_user_form' : register_user_form,
+        'sign_up_user_form' : sign_up_user_form,
     }

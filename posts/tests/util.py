@@ -8,6 +8,7 @@ from PIL import Image
 from posts.models import Post
 
 def get_temporary_image():
+    """Creates an image in the temporary files folder and returns it"""
     temp_file = tempfile.NamedTemporaryFile(suffix='.png')
 
     size = (200, 200)
@@ -20,6 +21,7 @@ def get_temporary_image():
 
 
 def get_expiring_date(publication_date):
+    """Returns a date that is week after the date we provide"""
     a_week = datetime.timedelta(days=7)
     a_week_from_publication_date = publication_date + a_week
     return a_week_from_publication_date
@@ -33,12 +35,14 @@ def get_test_image():
 
 
 def get_valid_post_object(*args, **kwargs):
+    """Returns a valid post object (with a valid image)"""
     post = PostFactory.build(*args, **kwargs)
     post.image = get_test_image()
     return post
 
 
 def save_valid_post_object(*args, **kwargs):
+    """Creates a valid post object (with a valid image) in the database"""
     post = PostFactory.build(*args, **kwargs)
     post.image = get_test_image()
     post.save()
@@ -46,6 +50,7 @@ def save_valid_post_object(*args, **kwargs):
 
 
 def get_dict_from_post(post):
+    """Transforms a post object into a dictionary object of a post"""
     data = {'title': post.title,
         'content': post.content,
         'image': post.image,

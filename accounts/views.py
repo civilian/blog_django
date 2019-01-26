@@ -3,15 +3,16 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-def register(request):
+from accounts.forms import SignUpUserForm
+
+def sign_up(request):
+    """Creates a user if the data is correct"""
     if request.method == 'POST':
-        username = request.POST.get('username', '')
-        email = request.POST.get('email', '')
-        password = request.POST.get('password', '')
-        retype_password = request.POST.get('retype_password', '')
-        # if form.is_valid():
-        #     post = form.save()
-        #     messages.success(request, 'The blog post has been created')
-        #     return redirect(reverse('posts:show', kwargs={'post_id': post.id}))
+        form = SignUpUserForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'The user has been created')
+            return redirect(reverse('home'))
+        messages.error(request, 'The password is wrong or the user has already been created')
         return redirect(reverse('home'))
 

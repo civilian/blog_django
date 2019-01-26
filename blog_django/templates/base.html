@@ -93,19 +93,17 @@
                   </form>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="ms-register-tab">
-                  <form>
+                  <form action="{% url 'accounts:sign_up' %}" method="post">
                     <fieldset>
-                      {% for field in register_user_form %}
+                      {% for field in sign_up_user_form %}
                           <div class="form-group label-floating">
                             {{ field.errors }}
                             <div class="input-group">
                               <span class="input-group-addon">
                                 <i class="zmdi zmdi-account"></i>
                               </span>
-                              <!-- {{ field.label_tag }} -->
                               <label class="control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
                               {{ field }}
-                              <!-- <input name="username" type="text" id="ms-form-user" class="form-control">  -->
                              </div>
                           </div>
                       {% endfor %}

@@ -1,5 +1,5 @@
 from .base import FunctionalTest
-from functional_tests.pages.account_register_popup_window import AccountRegisterPopupWindow
+from functional_tests.pages.account_signup_popup_window import AccountSignupPopupWindow
 from accounts.tests.util import UserFactory
 
 class LoginTest(FunctionalTest):
@@ -18,7 +18,7 @@ class LoginTest(FunctionalTest):
 
         # And the page tells him his user has been created
         user = UserFactory.build()
-        account_register_popup = AccountRegisterPopupWindow(self).create_user(user)  
+        AccountSignupPopupWindow(self).create_user(user)  
 
         # Now he proceds to log in
         # He first goes to the index page and clicks the person

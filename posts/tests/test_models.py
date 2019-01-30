@@ -9,7 +9,7 @@ class PostModelTest(TestCase):
 
     @override_settings(MEDIA_ROOT=tempfile.gettempdir())
     def test_can_save_valid_post_object(self):
-        post = PostFactory()
+        post = PostFactory.build()
         post.full_clean() ## should not raise
         post.save()
 

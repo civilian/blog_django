@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 PASSWORD_DONT_MATCH = "The passwords don't match"
+USERNAME_ALREADY_IN_USER = 'Username %s is alreay in use.'
 
 class SignUpUserForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -24,11 +25,11 @@ class SignUpUserForm(forms.Form):
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             return username
-        raise forms.ValidationError(f'Username {username} is alreay in use.')
+        raise forms.ValidationError(USERNAME_ALREADY_IN_USER % username)
 
 
 
-    def clean(self):
+    def clean_retype_password(self):
         password = self.cleaned_data.get('password')
         retype_password = self.cleaned_data.get('retype_password')
         if password == None or retype_password == None:

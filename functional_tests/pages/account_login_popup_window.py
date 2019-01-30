@@ -10,4 +10,5 @@ class AccountLoginPopupWindow(AccountBasePopupWindow):
     
     
     def click_login_button(self):
-        self.test.browser.find_element_by_name('register now').click()
+        self.test.browser.find_element_by_name('login').click()
+ 

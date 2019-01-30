@@ -1,5 +1,6 @@
 from .base import FunctionalTest
 from functional_tests.pages.account_signup_popup_window import AccountSignupPopupWindow
+from functional_tests.pages.account_login_popup_window import AccountLoginPopupWindow
 from accounts.tests.util import UserFactory
 
 class LoginTest(FunctionalTest):
@@ -25,9 +26,13 @@ class LoginTest(FunctionalTest):
         # icon again
 
         # Now he goes to the login tab
+        account_login_popup_window = AccountLoginPopupWindow(self).go_to_login_popup()
 
         # And he introduces his username and his password
+        account_login_popup_window.write_in_username_input_box(user.username)
+        account_login_popup_window.write_in_password_input_box(user.password)
 
         # And he clicks the login button
+        account_login_popup_window
 
         # Now the page tells him he is logged in

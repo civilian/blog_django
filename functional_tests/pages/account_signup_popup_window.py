@@ -7,18 +7,10 @@ class AccountSignupPopupWindow(AccountBasePopupWindow):
         self.go_to_account_popup()
         self.test.browser.find_element_by_id('id_signup_tab').click()
         return self
-
-
-    def write_in_username_input_box(self, text):
-        self.write_in_any_input_by_id(text, 'id_username')
     
 
     def write_in_email_input_box(self, text):
         self.write_in_any_input_by_id(text, 'id_email')
-    
-
-    def write_in_password_input_box(self, text):
-        self.write_in_any_input_by_id(text, 'id_password')
     
 
     def write_in_retype_password_input_box(self, text):

@@ -19,7 +19,7 @@ class SingUpViewTest(TestCase):
     def test_redirects_to_home_view(self):
         user = UserFactory.build()
         response = self.client.post(
-            reverse('accounts:sign_up'),
+            reverse('accounts:signup'),
             data=util.get_register_dict_from_user(user)
         )
         self.assertRedirects(response, reverse('home'))
@@ -28,7 +28,7 @@ class SingUpViewTest(TestCase):
     def test_succesfully_sign_up_user(self):
         user = UserFactory.build()
         self.client.post(
-            reverse('accounts:sign_up'),
+            reverse('accounts:signup'),
             data=util.get_register_dict_from_user(user)
         )
         self.assertEqual(1, User.objects.count())
@@ -41,7 +41,7 @@ class SingUpViewTest(TestCase):
         user_dict = util.get_register_dict_from_user(user)
         user_dict['retype_password'] = 'badpassword'
         self.client.post(
-            reverse('accounts:sign_up'),
+            reverse('accounts:signup'),
             data= user_dict
         )
         self.assertEqual(0, User.objects.count())
@@ -51,7 +51,7 @@ class SingUpViewTest(TestCase):
         UserFactory()
         user = UserFactory.build()
         self.client.post(
-            reverse('accounts:sign_up'),
+            reverse('accounts:signup'),
             data=util.get_register_dict_from_user(user)
         )
         self.assertEqual(1, User.objects.count())

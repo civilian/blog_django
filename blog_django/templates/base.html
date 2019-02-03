@@ -92,7 +92,7 @@
                   </form>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="ms-register-tab">
-                  <form action="{% url 'accounts:sign_up' %}" method="post">
+                  <form action="{% url 'accounts:signup' %}" method="post">
                     <fieldset>
                       <div class="form-group label-floating">
                         {{ signup_user_form.username.errors }}

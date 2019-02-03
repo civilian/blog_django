@@ -55,3 +55,14 @@ class SingUpViewTest(TestCase):
             data=util.get_register_dict_from_user(user)
         )
         self.assertEqual(1, User.objects.count())
+
+
+# class LoginViewTest(TestCase):
+
+#     def test_redirects_to_home_view(self):
+#         user = UserFactory()
+#         response = self.client.post(
+#             reverse('accounts:sign_up'),
+#             data=util.get_register_dict_from_user(user)
+#         )
+#         self.assertRedirects(response, reverse('home'))

@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
-from accounts.forms import SignUpUserForm, PASSWORD_DONT_MATCH, USERNAME_ALREADY_IN_USER
+from accounts.forms import ( 
+                SignUpUserForm, PASSWORD_DONT_MATCH, 
+                USERNAME_ALREADY_IN_USER)
 from accounts.tests import util
 from accounts.tests.util import UserFactory
 
@@ -20,7 +22,6 @@ class SignUpUserFormTest(TestCase):
         form = SignUpUserForm(data=data)
         self.assertTrue(form.is_valid())
         
-
 
     def test_form_validation_blank_content(self):
         user = UserFactory.build(username='')

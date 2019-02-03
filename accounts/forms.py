@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm
 
 User = get_user_model()
 
@@ -28,7 +29,6 @@ class SignUpUserForm(forms.Form):
         raise forms.ValidationError(USERNAME_ALREADY_IN_USER % username)
 
 
-
     def clean_retype_password(self):
         password = self.cleaned_data.get('password')
         retype_password = self.cleaned_data.get('retype_password')
@@ -37,3 +37,8 @@ class SignUpUserForm(forms.Form):
         elif password != retype_password:
             raise forms.ValidationError(PASSWORD_DONT_MATCH)
         return self.cleaned_data
+
+
+class BlogAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))

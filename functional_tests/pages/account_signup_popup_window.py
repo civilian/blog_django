@@ -9,12 +9,20 @@ class AccountSignupPopupWindow(AccountBasePopupWindow):
         return self
     
 
+    def write_in_username_input_box(self, text):
+        self.write_in_any_input_by_id(text, 'id_signup_username')
+    
+    
+    def write_in_password_input_box(self, text):
+        self.write_in_any_input_by_id(text, 'id_signup_password')
+
+
     def write_in_email_input_box(self, text):
-        self.write_in_any_input_by_id(text, 'id_email')
+        self.write_in_any_input_by_id(text, 'id_signup_email')
     
 
     def write_in_retype_password_input_box(self, text):
-        self.write_in_any_input_by_id(text, 'id_retype_password')
+        self.write_in_any_input_by_id(text, 'id_signup_retype_password')
     
     
     def click_signup_button(self):

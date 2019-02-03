@@ -33,6 +33,7 @@ class LoginTest(FunctionalTest):
         account_login_popup_window.write_in_password_input_box(user.password)
 
         # And he clicks the login button
-        account_login_popup_window
+        account_login_popup_window.click_login_button()
 
         # Now the page tells him he is logged in
+        account_login_popup_window.check_message_in_messages('The user has been logged in')

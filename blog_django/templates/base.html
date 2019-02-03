@@ -58,55 +58,90 @@
             <div class="modal-body">
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade active in" id="ms-login-tab">
-                  <form autocomplete="off">
+                  <form autocomplete="off" method="post">
                     <fieldset>
                       <div class="form-group label-floating">
+                        {{ login_form.username.errors }}
                         <div class="input-group">
                           <span class="input-group-addon">
                             <i class="zmdi zmdi-account"></i>
                           </span>
-                          <label class="control-label" for="ms-form-user">Username</label>
-                          <input id="id_login_username" type="text" id="ms-form-user" class="form-control"> </div>
+                          <label class="control-label" 
+                                  for="{{ login_form.username.id_for_label }}">
+                                  {{ login_form.username.label }}
+                          </label>
+                          {{ login_form.username }}
+                          </div>
                       </div>
                       <div class="form-group label-floating">
+                        {{ login_form.password.errors }}
                         <div class="input-group">
                           <span class="input-group-addon">
                             <i class="zmdi zmdi-lock"></i>
                           </span>
-                          <label class="control-label" for="ms-form-pass">Password</label>
-                          <input id="id_login_password" type="password" id="ms-form-pass" class="form-control"> </div>
-                      </div>
-                      <div class="row mt-2">
-                        <div class="col-md-6">
-                          <div class="form-group no-mt">
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox"> Remember Me </label>
-                            </div>
+                          <label class="control-label" 
+                                  for="{{ login_form.password.id_for_label }}">
+                                  {{ login_form.password.label }}
+                          </label>
+                          {{ login_form.password }}
                           </div>
-                        </div>
-                        <div class="col-md-6">
-                          <button class="btn btn-raised btn-primary pull-right">Login</button>
-                        </div>
                       </div>
+                      <input type="submit" name="login" value="Login" class="btn btn-raised btn-block btn-primary">
                     </fieldset>
+                    {% csrf_token %}
                   </form>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="ms-register-tab">
                   <form action="{% url 'accounts:sign_up' %}" method="post">
                     <fieldset>
-                      {% for field in sign_up_user_form %}
-                          <div class="form-group label-floating">
-                            {{ field.errors }}
-                            <div class="input-group">
-                              <span class="input-group-addon">
-                                <i class="zmdi zmdi-account"></i>
-                              </span>
-                              <label class="control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                              {{ field }}
-                             </div>
-                          </div>
-                      {% endfor %}
+                      <div class="form-group label-floating">
+                        {{ signup_user_form.username.errors }}
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-account"></i>
+                          </span>
+                          <label class="control-label" 
+                                  for="{{ signup_user_form.username.id_for_label }}">
+                                  {{ signup_user_form.username.label }}
+                          </label>
+                          {{ signup_user_form.username }}
+                      </div>
+                      <div class="form-group label-floating">
+                        {{ signup_user_form.email.errors }}
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-email"></i>
+                          </span>
+                          <label class="control-label" 
+                                  for="{{ signup_user_form.email.id_for_label }}">
+                                  {{ signup_user_form.email.label }}
+                          </label>
+                          {{ signup_user_form.email }}
+                      </div>
+                      <div class="form-group label-floating">
+                        {{ signup_user_form.password.errors }}
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-lock"></i>
+                          </span>
+                          <label class="control-label" 
+                                  for="{{ signup_user_form.password.id_for_label }}">
+                                  {{ signup_user_form.password.label }}
+                          </label>
+                          {{ signup_user_form.password }}
+                      </div>
+                      <div class="form-group label-floating">
+                        {{ signup_user_form.retype_password.errors }}
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-lock"></i>
+                          </span>
+                          <label class="control-label" 
+                                  for="{{ signup_user_form.retype_password.id_for_label }}">
+                                  {{ signup_user_form.retype_password.label }}
+                          </label>
+                          {{ signup_user_form.retype_password }}
+                      </div>
                       <input type="submit" name="register now" value="Register Now" class="btn btn-raised btn-block btn-primary">
                     </fieldset>
                     {% csrf_token %}

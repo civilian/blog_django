@@ -11,6 +11,20 @@ def get_register_dict_from_user(user):
     }
     return data
 
+def get_login_dict_from_user(user):
+    data = {'username': user.username,
+        'password': 'password',
+    }
+    return data
+
+def get_unsaved_user(*args, **kwargs):
+    """Returns a user that has not been saved but with the 
+    password 'password' instead of a saved password that is long
+    and comes with the salt"""
+    user = UserFactory.build(*args, **kwargs)
+    user.password = 'password'
+    return user
+
 class UserFactory(factory.django.DjangoModelFactory):
 
     class Meta:
@@ -18,4 +32,4 @@ class UserFactory(factory.django.DjangoModelFactory):
 
     username = 'nato'
     email = 'nato@nato.com'
-    password = factory.Faker('password')
+    password = factory.PostGenerationMethodCall('set_password', 'password')

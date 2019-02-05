@@ -1,6 +1,6 @@
 from .base import FunctionalTest
 from functional_tests.pages.account_signup_popup_window import AccountSignupPopupWindow
-from accounts.tests.util import UserFactory
+from accounts.tests import util
 
 class SignupFailsWithRepeatedUserTest(FunctionalTest):
 
@@ -17,7 +17,7 @@ class SignupFailsWithRepeatedUserTest(FunctionalTest):
         # He clicks the register now button
 
         # And the page tells him his user has been created
-        user = UserFactory.build()
+        user = util.get_unsaved_user()
         account_register_popup = AccountSignupPopupWindow(self).create_user(user)        
 
         # Todd goes to the new blog app

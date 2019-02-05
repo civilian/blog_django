@@ -39,7 +39,14 @@
                 </h3>
               </div>
               <div class="modal-header-tabs">
+                
                 <ul class="nav nav-tabs nav-tabs-full nav-tabs-3 nav-tabs-primary" role="tablist">
+                  {% if user.is_authenticated %}
+                    <li role="presentation" class="active">
+                      <a id="id_login" href="#ms-login-tab" aria-controls="ms-login-tab" role="tab" data-toggle="tab" class="withoutripple">
+                        <i class="zmdi zmdi-account"></i> Logout</a>
+                    </li>
+                  {% else %}
                   <li role="presentation" class="active">
                     <a id="id_login" href="#ms-login-tab" aria-controls="ms-login-tab" role="tab" data-toggle="tab" class="withoutripple">
                       <i class="zmdi zmdi-account"></i> Login</a>
@@ -52,13 +59,14 @@
                     <a href="#ms-recovery-tab" aria-controls="ms-recovery-tab" role="tab" data-toggle="tab" class="withoutripple">
                       <i class="zmdi zmdi-key"></i> Recovery Pass</a>
                   </li>
+                  {% endif %}
                 </ul>
               </div>
             </div>
             <div class="modal-body">
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade active in" id="ms-login-tab">
-                  <form autocomplete="off" method="post">
+                  <form action="{% url 'accounts:login' %}" autocomplete="off" method="post">
                     <fieldset>
                       <div class="form-group label-floating">
                         {{ login_form.username.errors }}

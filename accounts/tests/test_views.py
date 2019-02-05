@@ -36,7 +36,7 @@ class SingUpViewTest(TestCase):
         self.assertUserIsSavedCorrectly(user, User.objects.first())
     
     
-    def test_retype_password_incorrect_fails_to_sign_up(self):
+    def test_retype_password_incorrectly_fails_to_sign_up(self):
         """Test when the password is incorrectly retyped the user is not created"""
         user = util.get_unsaved_user()
         user_dict = util.get_register_dict_from_user(user)
@@ -61,7 +61,7 @@ class SingUpViewTest(TestCase):
 class LoginViewTest(TestCase):
 
     def test_redirects_to_home_view(self):
-        user = UserFactory()
+        user = util.get_unsaved_user()
         response = self.client.post(
             reverse('accounts:login'),
             data=util.get_login_dict_from_user(user),
@@ -77,4 +77,27 @@ class LoginViewTest(TestCase):
         )
         user = auth.get_user(self.client)
         self.assertTrue(user.is_authenticated)
+    
+
+    def test_cant_log_incorrect_password_for_user(self):
+        user = UserFactory()
+        data = util.get_login_dict_from_user(user)
+        data['password'] = 'badpassword'
+        self.client.post(
+            reverse('accounts:login'),
+            data=data,
+        )
+        user = auth.get_user(self.client)
+        self.assertFalse(user.is_authenticated)
+    
+    
+    def test_cant_log_incorrect_user(self):
+        UserFactory()
+        user = UserFactory.build(username='newuseer')
+        self.client.post(
+            reverse('accounts:login'),
+            data=util.get_login_dict_from_user(user),
+        )
+        user = auth.get_user(self.client)
+        self.assertFalse(user.is_authenticated)
         

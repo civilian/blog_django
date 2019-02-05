@@ -12,13 +12,16 @@ def get_register_dict_from_user(user):
     return data
 
 def get_login_dict_from_user(user):
+    """Returns a dictionary with the data needed to
+    login a user but the password is 'password' because the object
+    of a user saves the hashed password and not the actual password"""
     data = {'username': user.username,
         'password': 'password',
     }
     return data
 
 def get_unsaved_user(*args, **kwargs):
-    """Returns a user that has not been saved but with the 
+    """Returns a user that has not been saved with the 
     password 'password' instead of a saved password that is long
     and comes with the salt"""
     user = UserFactory.build(*args, **kwargs)

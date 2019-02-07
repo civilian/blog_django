@@ -100,4 +100,25 @@ class LoginViewTest(TestCase):
         )
         user = auth.get_user(self.client)
         self.assertFalse(user.is_authenticated)
-        
+
+
+class LogoutViewTest(TestCase):
+
+    def test_redirects_to_home_view(self):
+        user = UserFactory()
+        self.client.login(username=user.username, password='password')
+        response = self.client.post(
+            reverse('accounts:logout'),
+        )
+        self.assertRedirects(response, reverse('home'))
+    
+    
+    def test_succesfuly_logs_out_the_user(self):
+        user = UserFactory()
+        self.client.login(username=user.username, password='password')
+        self.client.post(
+            reverse('accounts:logout'),
+        )
+        user = auth.get_user(self.client)
+        self.assertFalse(user.is_authenticated)
+

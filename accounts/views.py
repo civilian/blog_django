@@ -28,3 +28,10 @@ def login(request):
             messages.success(request, 'The user has been logged in')
         return redirect(reverse('home'))
 
+
+def logout(request):
+    if request.method == 'POST':
+        auth.logout(request)
+        messages.success(request, 'The user has been logged out')
+        return redirect(reverse('home'))
+

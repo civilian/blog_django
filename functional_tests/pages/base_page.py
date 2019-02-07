@@ -28,3 +28,8 @@ class BasePage(object):
         input = self.test.browser.find_element_by_id(id)
         input.clear()
         input.send_keys(text)
+    
+    
+    @wait
+    def click_logout(self):
+        self.test.browser.find_element_by_name('logout').click()

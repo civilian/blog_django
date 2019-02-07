@@ -37,3 +37,9 @@ class LoginTest(FunctionalTest):
 
         # Now the page tells him he is logged in
         account_login_popup_window.check_message_in_messages('The user has been logged in')
+
+        # Now he just logs out
+        account_login_popup_window.click_logout()
+
+        # Now the page tells him he is logged out
+        account_login_popup_window.check_message_in_messages('The user has been logged out')

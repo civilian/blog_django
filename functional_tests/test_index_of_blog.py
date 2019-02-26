@@ -6,6 +6,9 @@ from posts.tests.util import PostFactory
 class IndexBlogTests(FunctionalTest):
 
     def test_index_blog_shows_posts_and_can_be_consulted(self):
+        # Nato is a logged-in user
+        self.create_pre_authenticated_session('nato')
+
         # Nato goes to the blog and creates a posts and keeps the url
         first_post = PostFactory.build(title='First post title')
         create_post_page = CreatePostPage(self).create_post(first_post)

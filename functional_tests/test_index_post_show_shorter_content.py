@@ -8,6 +8,9 @@ from posts.tests.util import PostFactory
 class IndexPostShowsContentTruncatedTests(FunctionalTest):
 
     def test_index_post_shows_truncated_content(self):
+        # Nato is a logged-in user
+        self.create_pre_authenticated_session('nato')
+
         # Nato goes to the blog and creates a post with a long content
         post = PostFactory.build(title='First post title')
         fake = Faker()

@@ -8,6 +8,9 @@ from posts.forms import EXPIRATION_DATE_IS_WRONG
 class CannontAddAPostWithBadExpirationDateTest(FunctionalTest):
 
     def test_cannot_add_post_with_bad_expiration_date(self):
+        # Nato is a logged-in user
+        self.create_pre_authenticated_session('nato')
+
         # Nato goes blog and starts a new post
         create_post_page = CreatePostPage(self).go_to_create_post_page()
         create_post_page.write_in_title_input_box('Awesome blog post')

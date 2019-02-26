@@ -1,5 +1,8 @@
 from django.conf import settings
-from django.contrib.auth import BACKEND_SESSION_KEY, SESSION_KEY, get_user_model
+from django.contrib.auth import ( 
+    BACKEND_SESSION_KEY, SESSION_KEY, get_user_model,
+    HASH_SESSION_KEY
+)
 User = get_user_model()
 from django.contrib.sessions.backends.db import SessionStore
 from django.core.management.base import BaseCommand
@@ -15,10 +18,13 @@ class Command(BaseCommand):
         self.stdout.write(session_key)
 
 
-def create_pre_authenticated_session(email):
-    user = User.objects.create(email=email)
+def create_pre_authenticated_session(username):
+    password = username
+    email = f'{username}@example.com'
+    user = User.objects.create_user(username=username, email=email, password=password)
     session = SessionStore()
     session[SESSION_KEY] = user.pk
     session[BACKEND_SESSION_KEY] = settings.AUTHENTICATION_BACKENDS[0]
+    session[HASH_SESSION_KEY] = user.get_session_auth_hash()
     session.save()
     return session.session_key

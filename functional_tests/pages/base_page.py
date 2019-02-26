@@ -23,6 +23,7 @@ class BasePage(object):
         )
         return self
     
+    
     def write_in_any_input_by_id(self, text, id):
         """Writes in any input box recognizing it by id"""
         input = self.test.browser.find_element_by_id(id)

@@ -93,21 +93,23 @@ class FunctionalTest(StaticLiveServerTestCase):
         return fn()
 
 
-    def create_pre_authenticated_session(self, email):
+    def create_pre_authenticated_session(self, username):
+        # TODO: Correct the staging server and the staging port
         if self.staging_server:
             if self.staging_port:
                 session_key = create_session_on_server(
-                                self.staging_server, email,
+                                self.staging_server, username,
                                 self.staging_ssh_user,
                                 self.staging_ssh_port,
                                 self.staging_ssh_private_key
                             )
             else:
                 session_key = create_session_on_server(self.staging_server,
-                                                        email, self.staging_ssh_user)
+                                                        username, self.staging_ssh_user)
         else:
             # TODO: To create a user we will need more than an email
-            session_key = create_pre_authenticated_session(email)
+            session_key = create_pre_authenticated_session(username)
+            print(session_key)
 
         ## to set a cookie we need to first  visit the domain.
         ## 404 pages load the quickest!

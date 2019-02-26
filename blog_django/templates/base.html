@@ -217,18 +217,20 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle animated fadeIn
-                  animation-delay-9" data-toggle="dropdown" data-hover="dropdown"
-                  role="button" aria-haspopup="true" aria-expanded="false"
-                  data-name="ecommerce">Posts
-                  <i class="zmdi zmdi-chevron-down"></i>
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a href="{% url 'posts:create' %}">Create New Post</a>
-                    <a href="{% url 'posts:index' %}">Show All Posts</a>
-                  </li>
-                </ul>
+                {% if user.is_authenticated %}
+                  <a href="#" class="dropdown-toggle animated fadeIn
+                    animation-delay-9" data-toggle="dropdown" data-hover="dropdown"
+                    role="button" aria-haspopup="true" aria-expanded="false"
+                    data-name="ecommerce">Posts
+                    <i class="zmdi zmdi-chevron-down"></i>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="{% url 'posts:create' %}">Create New Post</a>
+                      <a href="{% url 'posts:index' %}">Show All Posts</a>
+                    </li>
+                  </ul>
+                {% endif %}
               </li>
             </ul>
           </div>
@@ -303,15 +305,16 @@
           </div>
         </div>
       </header>
+        {% if user.is_authenticated %}
         <li class="panel" role="tab" id="sch5">
           <a class="collapsed" role="button" data-toggle="collapse" data-parent="#slidebar-menu" href="#sc5" aria-expanded="false" aria-controls="sc5">
-             Posts </a>
+            Posts </a>
           <ul id="sc5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="sch5">
             <li><a href="{% url 'posts:create' %}">Create New Post</a></li>
             <li><a href="{% url 'posts:index' %}">Show All Posts</a></li>
           </ul>
         </li>
-      </ul>
+        {% endif %}
     </div>
     <script src="/static/js/plugins.min.js"></script>
     <script src="/static/js/app.min.js"></script>

@@ -7,7 +7,10 @@ from posts.tests.util import PostFactory
 class CreatesAPostTest(FunctionalTest):
 
     def test_can_create_a_post(self):
-        # Nato goes to check the home page of the new blog app
+        # Nato is a logged-in user
+        self.create_pre_authenticated_session('nato')
+
+        # He goes to check the home page of the new blog app
         # he has heard about
         self.browser.get(self.live_server_url)
 

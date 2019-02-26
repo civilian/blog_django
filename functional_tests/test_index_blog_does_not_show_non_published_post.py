@@ -9,6 +9,9 @@ from posts.tests.util import PostFactory
 class IndexBlogDoesNotShowNonPublishedPostTests(FunctionalTest):
 
     def test_index_blog_does_not_show_non_published_post(self):
+        # Nato is a logged-in user
+        self.create_pre_authenticated_session('nato')
+
         # Nato goes to the blog and creates an expired post
         non_published_post = PostFactory.build(title='Expired post')
         non_published_post.publication_date = datetime.date.today() + datetime.timedelta(1)

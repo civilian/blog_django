@@ -109,7 +109,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         else:
             # TODO: To create a user we will need more than an email
             session_key = create_pre_authenticated_session(username)
-            print(session_key)
 
         ## to set a cookie we need to first  visit the domain.
         ## 404 pages load the quickest!

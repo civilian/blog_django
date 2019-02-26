@@ -10,7 +10,10 @@ from posts.tests.util import PostFactory
 class EditAPostTest(FunctionalTest):
 
     def test_can_edit_a_post(self):
-        # Nato goes to the blog and creates a post
+        # Nato is a logged-in user
+        self.create_pre_authenticated_session('nato')
+
+        # He goes to the blog and creates a post
         post_object = PostFactory.build()
         CreatePostPage(self).create_post(post_object)
 

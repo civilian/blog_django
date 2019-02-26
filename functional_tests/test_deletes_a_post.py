@@ -6,6 +6,9 @@ from posts.tests.util import PostFactory
 class DeletesAPostTests(FunctionalTest):
 
     def test_can_delete_a_post(self):
+        # Nato is a logged-in user
+        self.create_pre_authenticated_session('nato')
+        
         # Nato goes to the blog and creates two post
         first_post = PostFactory.build(title='First post title')
         second_post = PostFactory.build(title='Second post title')

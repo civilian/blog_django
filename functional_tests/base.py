@@ -107,7 +107,6 @@ class FunctionalTest(StaticLiveServerTestCase):
                 session_key = create_session_on_server(self.staging_server,
                                                         username, self.staging_ssh_user)
         else:
-            # TODO: To create a user we will need more than an email
             session_key = create_pre_authenticated_session(username)
 
         ## to set a cookie we need to first  visit the domain.

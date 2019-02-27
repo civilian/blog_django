@@ -17,6 +17,9 @@ def quit_if_possible(browser):
 class PublicationDateAjax(FunctionalTest):
 
     def test_publication_date_updates_asynchronous(self):
+        # Nato is a logged-in user
+        self.create_pre_authenticated_session('nato')
+        
         # Nato goes to the blog and creates a post
         post_object = PostFactory.build()
         CreatePostPage(self).create_post(post_object)
@@ -29,8 +32,12 @@ class PublicationDateAjax(FunctionalTest):
 
         # Then he proceeds to edit it in another browser
         second_browser = webdriver.Firefox()
+
         self.addCleanup(lambda: quit_if_possible(second_browser))
         self.browser = second_browser
+
+        # Nato logs in in a second browser
+        self.create_pre_authenticated_session('nato')
 
         # He first goes to the page of the post
         index_post_page = IndexPostPage(self).go_to_index_post_page()
